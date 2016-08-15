@@ -3,3 +3,4 @@ youtube-dl
 requests
 gunicorn
 eventlet
+greenlet
