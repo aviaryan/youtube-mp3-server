@@ -24,12 +24,6 @@ def save_trending_songs(playlist_name, songs):
     conn, cursor = get_connection()
 
     try:
-        sql_delete = 'delete from trending_songs where id_ = ? and playlist_ = ?'
-
-        data_delete = [(song['id'], playlist_name) for song in songs]
-
-        cursor.executemany(sql_delete, data_delete)
-
         sql = 'insert into trending_songs values(?,?,?,?,?,?,?,?)'
 
         data = [
