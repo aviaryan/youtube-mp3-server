@@ -9,6 +9,9 @@ class Scheduler():
         self.name = name
         self.period = period
 
+    def __str__(self):
+        return self.name
+
     def start(self):
         worker = Thread(target=self.run_repeater)
         worker.daemon = True
