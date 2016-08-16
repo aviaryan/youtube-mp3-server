@@ -79,12 +79,12 @@ def get_trending(type='popular', count=25, get_url_prefix=''):
     return vids
 
 
-def clear_trending():
+def clear_trending(pl_name):
     conn, cur = get_connection()
 
-    sql = 'delete from trending_songs'
+    sql = 'delete from trending_songs where playlist_ = ?'
 
-    cur.execute(sql)
+    cur.execute(sql, (pl_name,))
 
     conn.commit()
     conn.close()
