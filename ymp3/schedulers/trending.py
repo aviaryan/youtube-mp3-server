@@ -29,5 +29,5 @@ class TrendingScheduler(Scheduler):
 
             song_data = get_trending_videos(html)
             
-            clear_trending()
+            clear_trending(pl)
             save_trending_songs(playlist_name, song_data)
