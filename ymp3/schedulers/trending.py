@@ -3,7 +3,7 @@ from . import Scheduler
 from ..helpers.data import trending_playlist
 from ..helpers.trending import get_trending_videos
 from ..helpers.networking import open_page
-from ..helpers.database import save_trending_songs
+from ..helpers.database import save_trending_songs, clear_trending
 
 
 class TrendingScheduler(Scheduler):
@@ -28,5 +28,6 @@ class TrendingScheduler(Scheduler):
             )
 
             song_data = get_trending_videos(html)
-
+            
+            clear_trending()
             save_trending_songs(playlist_name, song_data)
