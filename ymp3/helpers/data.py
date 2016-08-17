@@ -1,3 +1,5 @@
+import os
+
 trending_playlist = [
     ('popular', 'https://www.youtube.com/playlist?list=PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI'),
     ('latest', 'https://www.youtube.com/playlist?list=PLFgquLnL59akA2PflFpeQG9L01VFg90wS'),
@@ -59,6 +61,6 @@ psql_data = {
     'db_name': 'ymp3',
     'username': 'ymp3',
     'password': 'ymp3',
-    'host': '127.0.0.1',
+    'host': os.environ.get('OPENSHIFT_POSTGRESQL_DB_HOST'),
     'port': '5432'
 }
