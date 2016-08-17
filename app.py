@@ -1,14 +1,14 @@
 from os import environ
 from subprocess import call
 
-from ymp3.helpers.database import init_database
+from ymp3.helpers.database import init_databases
 from ymp3.schedulers import trending
 
 
 if __name__ == '__main__':
 
     # Create SQLite tables
-    init_database()
+    init_databases()
 
     # Start schedulers
     trending_scheduler = trending.TrendingScheduler()

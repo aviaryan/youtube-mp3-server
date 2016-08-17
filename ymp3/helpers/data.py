@@ -47,6 +47,18 @@ user_agents = [
     'WorldWideweb (NEXT)'
 ]
 
-table_creation_sql_statements = [
+table_creation_sqlite_statements = [
     '''create table if not exists trending_songs(id_ text, title_ text, thumb_ text, uploader_ text, length_ text, views_ text, get_url_ text, playlist_ text)''',
 ]
+
+table_creation_psql_statements = [
+    '''create table if not exists api_log(args VARCHAR(8192), access_route varchar(8192), base_url varchar(5120), path varchar(5120), method VARCHAR(4), user_agent varchar(256), request_time TIMESTAMP WITH TIME zone default now())''',
+]
+
+psql_data = {
+    'db_name': 'ymp3',
+    'username': 'ymp3',
+    'password': 'ymp3',
+    'host': '127.0.0.1',
+    'port': '5432'
+}

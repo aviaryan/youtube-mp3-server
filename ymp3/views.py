@@ -8,12 +8,13 @@ from helpers.search import get_videos, get_video_attrs
 from helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title
 from helpers.encryption import get_key, encode_data, decode_data
 from helpers.data import trending_playlist
-from helpers.database import get_trending
+from helpers.database import get_trending, log_api_call
 from helpers.networking import open_page
 
 
 @app.route('/')
 def home():
+    log_api_call(request)
     return render_template('/home.html')
 
 
@@ -23,6 +24,7 @@ def download_file(url):
     Download the file from the server.
     First downloads the file on the server using wget and then converts it using ffmpeg
     """
+    log_api_call(request)
     try:
         # decode info from url
         try:
@@ -64,6 +66,7 @@ def get_link():
     """
     Uses youtube-dl to fetch the direct link
     """
+    log_api_call(request)
     try:
         url = request.args.get('url')
 
@@ -103,6 +106,7 @@ def search():
     """
     Search youtube and return results
     """
+    log_api_call(request)
     try:
         search_term = request.args.get('q')
         link = 'https://www.youtube.com/results?search_query=%s' % search_term
@@ -142,6 +146,7 @@ def get_latest():
     """
     Get trending songs
     """
+    log_api_call(request)
     try:
         max_count = int(request.args.get('number', '25'))
         if max_count <= 0:

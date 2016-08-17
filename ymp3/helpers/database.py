@@ -1,27 +1,45 @@
+import json
 import sqlite3
 from ymp3 import DATABASE_PATH
+from . import psql_connection_pool
 
-from ..helpers.data import table_creation_sql_statements
+from ..helpers.data import table_creation_sqlite_statements, table_creation_psql_statements
 
 
-def get_connection():
+def init_databases():
+    init_sqlite_database()
+    init_psql_database()
+
+
+def get_sqlite_connection():
     conn = sqlite3.connect(DATABASE_PATH)
     return conn, conn.cursor()
 
 
-def init_database():
-    conn, cursor = get_connection()
+def init_sqlite_database():
+    conn, cursor = get_sqlite_connection()
 
-    for statement in table_creation_sql_statements:
+    for statement in table_creation_sqlite_statements:
         cursor.execute(statement)
 
     conn.commit()
     conn.close()
 
 
+def init_psql_database():
+    conn = psql_connection_pool.getconn()
+    cur = conn.cursor()
+
+    for statement in table_creation_psql_statements:
+        cur.execute(statement)
+
+    conn.commit()
+    psql_connection_pool.putconn(conn)
+
+
 def save_trending_songs(playlist_name, songs):
 
-    conn, cursor = get_connection()
+    conn, cursor = get_sqlite_connection()
 
     try:
         sql = 'insert into trending_songs values(?,?,?,?,?,?,?,?)'
@@ -48,7 +66,7 @@ def save_trending_songs(playlist_name, songs):
 
 
 def get_trending(type='popular', count=25, get_url_prefix=''):
-    conn, cursor = get_connection()
+    conn, cursor = get_sqlite_connection()
 
     sql = 'select * from trending_songs where playlist_ = ? limit ?'
 
@@ -74,7 +92,7 @@ def get_trending(type='popular', count=25, get_url_prefix=''):
 
 
 def clear_trending(pl_name):
-    conn, cur = get_connection()
+    conn, cur = get_sqlite_connection()
 
     sql = 'delete from trending_songs where playlist_ = ?'
 
@@ -82,3 +100,27 @@ def clear_trending(pl_name):
 
     conn.commit()
     conn.close()
+
+
+def log_api_call(obj):
+
+    con = psql_connection_pool.getconn()
+    cur = con.cursor()
+
+    sql = "insert into api_log values(%s, %s, %s, %s, %s, %s)"
+
+    args = json.dumps(dict(obj.args))
+    access_route = json.dumps(list(obj.access_route))
+    base_url = obj.base_url
+    path = obj.path
+    method = obj.method
+    useragent = str(obj.user_agent)
+
+    cur.execute(
+        sql,
+        (args, access_route, base_url, path, method, useragent)
+    )
+
+    con.commit()
+
+    psql_connection_pool.putconn(con)
