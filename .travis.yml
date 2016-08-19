@@ -11,6 +11,7 @@ env:
 
 services:
   - docker
+  - postgresql
 
 install:
   # - docker-compose build
