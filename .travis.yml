@@ -3,7 +3,7 @@ python:
   - "2.7"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libpq-dev python2.7-dev
+  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql postgresql-contrib
 env:
   APP_CONFIG: "config.TestingConfig"
   DOCKER_COMPOSE_VERSION: 1.8.0
