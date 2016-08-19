@@ -10,7 +10,7 @@ COPY . .
 
 # install deps
 RUN apk update
-RUN apk add --no-cache --virtual build-dependencies gcc python-dev libevent-dev linux-headers musl-dev \
+RUN apk add --no-cache --virtual build-dependencies gcc python-dev libevent-dev linux-headers musl-dev postgresql postgresql-dev\
 	&& pip install -r requirements.txt \
 	&& apk del build-dependencies
 

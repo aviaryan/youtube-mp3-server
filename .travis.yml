@@ -3,7 +3,7 @@ python:
   - "2.7"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libpq-dev python2.7-dev
+  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql postgresql-contrib
 env:
   APP_CONFIG: "config.TestingConfig"
   DOCKER_COMPOSE_VERSION: 1.8.0
@@ -11,6 +11,7 @@ env:
 
 services:
   - docker
+  - postgresql
 
 install:
   # - docker-compose build
@@ -18,6 +19,11 @@ install:
   - docker build -t ymp3 .
   - docker images | grep -i ymp3
   - docker run -d -p 127.0.0.1:80:5000 --name ymp3 ymp3
+
+before_script:
+  - psql -c "CREATE DATABASE ymp3;" -U postgres
+  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres
+  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres
 
 script:
   - docker ps | grep -q ymp3

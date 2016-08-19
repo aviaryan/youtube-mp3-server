@@ -2,6 +2,9 @@ import unittest
 import json
 # import os
 from ymp3 import app
+from ymp3.helpers.database import init_databases
+
+init_databases()
 
 
 class YMP3TestCase(unittest.TestCase):
