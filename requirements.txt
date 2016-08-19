@@ -4,3 +4,4 @@ requests
 gunicorn
 eventlet
 greenlet
+psycopg2
