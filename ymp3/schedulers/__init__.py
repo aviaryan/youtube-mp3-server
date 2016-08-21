@@ -12,9 +12,9 @@ class Scheduler():
     def __str__(self):
         return self.name
 
-    def start(self, daemon_mode=True):
+    def start(self):
         worker = Thread(target=self.run_repeater)
-        worker.daemon = daemon_mode
+        worker.daemon = True
         worker.start()
         return worker
 

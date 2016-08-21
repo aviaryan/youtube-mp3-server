@@ -16,7 +16,9 @@ class TrendingScheduler(Scheduler):
         self.connection_delay = connection_delay
 
     def run(self):
-
+        """
+        Run the trending crawler
+        """
         for pl in self.playlist:
             logger.info('Crawling playlist "%s"' % pl[0])
 
