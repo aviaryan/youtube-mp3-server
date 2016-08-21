@@ -16,6 +16,7 @@ class Scheduler():
         worker = Thread(target=self.run_repeater)
         worker.daemon = daemon_mode
         worker.start()
+        return worker
 
     def run_repeater(self):
         while True:
