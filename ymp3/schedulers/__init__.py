@@ -12,12 +12,10 @@ class Scheduler():
     def __str__(self):
         return self.name
 
-    def start(self, wait=False):
+    def start(self):
         worker = Thread(target=self.run_repeater)
         worker.daemon = True
         worker.start()
-        if wait:
-            worker.join()
         return worker
 
     def run_repeater(self):
