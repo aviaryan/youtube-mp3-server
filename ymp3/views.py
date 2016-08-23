@@ -1,4 +1,8 @@
 import traceback
+
+import requests
+from flask import Response
+
 from ymp3 import logger
 from flask import jsonify, request, render_template, url_for, make_response
 from subprocess import check_output, call
@@ -264,3 +268,21 @@ def get_playlists():
     }
 
     return jsonify(response)
+
+
+@app.route('/api/v1/stream')
+@record_request
+def stream():
+    url = request.args.get('url')
+
+    try:
+        url = decode_data(get_key(), url)['url']
+    except Exception:
+        return 'Bad URL', 004
+
+    def generate_data():
+        r = requests.get(url, stream=True)
+        for data_chunk in r.iter_content(chunk_size=2048):
+            yield data_chunk
+
+    return Response(generate_data(), mimetype='audio/mp4')

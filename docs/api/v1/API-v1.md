@@ -227,3 +227,14 @@ Example -
 		]
 	}
 	```
+
+* ### Streaming content
+	* **Type**: `GET`
+	* **Location**: `/api/v1/stream`
+	* **Parameters**:
+
+		| Term | Explaination |
+		|------|--------------|
+		|`url`| Encoded URL as recieved from `/api/v1/g`|
+
+	* **Response**: `m4a` audio stream or some error.
