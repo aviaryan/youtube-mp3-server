@@ -278,7 +278,7 @@ def stream():
     try:
         url = decode_data(get_key(), url)['url']
     except Exception:
-        return 'Bad URL', 004
+        return 'Bad URL', 400
 
     def generate_data():
         r = requests.get(url, stream=True)
