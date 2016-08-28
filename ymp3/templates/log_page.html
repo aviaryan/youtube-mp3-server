@@ -48,7 +48,7 @@
         </table>
 
         <div class="row">
-            <div class="col s6 l4 m4">
+            <div class="col s6 l3 m3">
                 <h3 style="border-top: 1px black solid;">Insights of Day</h3>
                 <table class="bordered table-responsive">
                     <thead>
@@ -65,7 +65,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col s6 l4 m4">
+            <div class="col s6 l3 m3">
                 <h3 style="border-top: 1px black solid;">Insights of Month</h3>
                 <table class="bordered table-responsive">
                     <thead>
@@ -82,8 +82,25 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col s6 l4 m4">
-                <h3 style="border-top: 1px black solid;">Popular Searches of the Day</h3>
+            <div class="col s6 l3 m3">
+                <h3 style="border-top: 1px black solid;">All Time Insights</h3>
+                <table class="bordered table-responsive">
+                    <thead>
+                        <th>Path</th>
+                        <th>Number of Calls</th>
+                    </thead>
+                    <tbody>
+                        {% for elem in all_path %}
+                        <tr>
+                            <td>{{ elem[0] }}</td>
+                            <td>{{ elem[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s6 l3 m3">
+                <h3 style="border-top: 1px black solid;">Popular Searches</h3>
                 <table class="bordered table-responsive">
                     <thead>
                         <th>Query</th>

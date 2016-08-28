@@ -144,10 +144,12 @@ from api_log order by request_time desc limit %s offset %s'''
     extract(epoch from request_time))/60/60/24/30 <= 1)
      as t1 group by t1.path;'''
 
+    sql_all_path = '''select path, count(*) from api_log group by path;'''
+
     sql_popular_query = '''select * from (select q[1] as query, count(*) as cnt from
 (select regexp_matches(args, 'q": \[\"(.*)\"') as q, request_time from api_log where
- path like '/api/v_/search') as d where (extract(epoch from request_time) -
- extract(epoch from current_timestamp))/60/60/24 <= 1 group by q[1]) t2 order by cnt desc limit 10;'''
+ path like '/api/v_/search') as d where (extract(epoch from CURRENT_TIMESTAMP ) -
+ extract(epoch from request_time))/60/60/24 <= 1 group by q[1]) t2 order by cnt desc limit 8;'''
 
     con = psql_connection_pool.getconn()
     cur = con.cursor()
@@ -163,6 +165,9 @@ from api_log order by request_time desc limit %s offset %s'''
 
     cur.execute(sql_popular_query)
     rows_popular_query = cur.fetchall()
+
+    cur.execute(sql_all_path)
+    rows_all_path = cur.fetchall()
 
     calls = []
     for row in rows_calls:
@@ -183,5 +188,6 @@ from api_log order by request_time desc limit %s offset %s'''
         'logs': calls,
         'day_path': rows_day_path,
         'month_path': rows_month_path,
+        'all_path': rows_all_path,
         'popular_query': rows_popular_query
     }
