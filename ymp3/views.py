@@ -252,7 +252,7 @@ def get_log_page():
     except Exception:
         number = 0
 
-    resultset = get_api_log(number, offset)
+    result = get_api_log(number, offset)
 
     if offset - number < 0:
         prev_link = None
@@ -270,8 +270,8 @@ def get_log_page():
     )
 
     return render_template(
-        '/log_page.html', logs=resultset, number=number, offset=offset,
-        prev_link=prev_link, next_link=next_link
+        '/log_page.html', logs=result['logs'], number=number, offset=offset, prev_link=prev_link, next_link=next_link,
+        day_path=result['day_path'], month_path=result['month_path'], popular_queries=result['popular_query']
     )
 
 

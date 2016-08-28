@@ -38,7 +38,6 @@ def init_psql_database():
 
 
 def save_trending_songs(playlist_name, songs):
-
     conn, cursor = get_sqlite_connection()
 
     try:
@@ -56,7 +55,7 @@ def save_trending_songs(playlist_name, songs):
                 playlist_name,
                 song['description'].decode('utf-8')
             ) for song in songs
-        ]
+            ]
 
         cursor.executemany(sql, data)
         conn.commit()
@@ -107,7 +106,6 @@ def clear_trending(pl_name):
 
 
 def log_api_call(obj):
-
     con = psql_connection_pool.getconn()
     cur = con.cursor()
 
@@ -131,20 +129,43 @@ def log_api_call(obj):
 
 
 def get_api_log(number=10, offset=0):
+    sql_logs = '''select * from api_log order by request_time desc limit %s offset %s'''
 
-    sql = '''select * from api_log order by request_time desc limit %s offset %s'''
+    sql_day_path = '''select t1.path, count(*) from
+    (select path from api_log where
+    (extract(epoch from current_timestamp) -
+    extract(epoch from request_time))/60/60/24 <= 1)
+     as t1 group by t1.path;'''
+
+    sql_month_path = '''select t1.path, count(*) from
+    (select path from api_log where
+    (extract(epoch from current_timestamp) -
+    extract(epoch from request_time))/60/60/24/30 <= 1)
+     as t1 group by t1.path;'''
+
+    sql_popular_query = '''select * from (select q[1] as query, count(*) as cnt from
+(select regexp_matches(args, 'q": \[\"(.*)\"') as q, request_time from api_log where
+ path like '/api/v_/search') as d where (extract(epoch from request_time) -
+ extract(epoch from current_timestamp))/60/60/24 <= 1 group by q[1]) t2 order by cnt desc limit 10;'''
 
     con = psql_connection_pool.getconn()
     cur = con.cursor()
 
-    cur.execute(sql, (number, offset))
-    rows = cur.fetchall()
+    cur.execute(sql_logs, (number, offset))
+    rows_calls = cur.fetchall()
 
-    psql_connection_pool.putconn(con)
+    cur.execute(sql_day_path)
+    rows_day_path = cur.fetchall()
 
-    result = []
-    for row in rows:
-        result.append(
+    cur.execute(sql_month_path)
+    rows_month_path = cur.fetchall()
+
+    cur.execute(sql_popular_query)
+    rows_popular_query = cur.fetchall()
+
+    calls = []
+    for row in rows_calls:
+        calls.append(
             {
                 'args': row[0],
                 'access_route': row[1],
@@ -152,8 +173,14 @@ def get_api_log(number=10, offset=0):
                 'path': row[3],
                 'method': row[4],
                 'user_agent': row[5],
-                'request_time': row[6],
+                'request_time': row[6]
             }
         )
 
-    return result
+    psql_connection_pool.putconn(con)
+    return {
+        'logs': calls,
+        'day_path': rows_day_path,
+        'month_path': rows_month_path,
+        'popular_query': rows_popular_query
+    }
