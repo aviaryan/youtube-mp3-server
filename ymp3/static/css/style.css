@@ -118,6 +118,14 @@ body{
 	justify-content: center;
 }
 
+ul.list-normal{
+	padding: 0;
+}
+
+ul.list-normal li{
+	list-style: none;
+}
+
 /**********************
 **Navbar Custom Style**
 ***********************/
@@ -186,6 +194,68 @@ body{
 
 .nav-white .brand-logo,.nav-white a{
 	color: rgba(244, 67, 54,0.75);
+}
+
+.nav--custom form.search-wrapper{
+	position: relative;
+}
+
+input:focus ~ div.search-suggestions{
+	opacity: 1 !important;
+	display: block;
+}
+
+.nav--custom .search-suggestions{
+	position: absolute;
+	width: 100%;
+	left: 0;
+	background-color: whitesmoke;
+	top: 75px;
+	z-index: 998;
+	opacity: 0;
+	display: none;
+	transition: all 0.35s;
+}
+
+div.search-suggestions::before{
+	content: ' ';
+	position: absolute;
+	top: -25px;
+	margin-left: -12.5px;
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 25px solid whitesmoke;
+}
+
+.nav--custom div.search-suggestions li{
+	float: none;
+	line-height: 3;
+	text-align: left;
+}
+
+div.search-suggestions li a{
+	font-size: 1.75rem;
+	color: rgba(51,51,51,1);
+}
+
+.popular-suggestions .popular-suggestions__title{
+	margin-top: 2.5rem;
+	text-align: left;
+	padding-left: 1.5rem;
+}
+
+.search-suggestions.searching .popular-suggestions{
+	display: none;
+}
+
+.search-suggestions-res {
+	display: none;
+}
+
+.search-suggestions.searching .search-suggestions-res {
+	display: block;
 }
 
 /**********************

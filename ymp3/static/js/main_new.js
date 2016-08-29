@@ -2,8 +2,6 @@ $(document).ready(function(){
 
 	//Search event listener
 	$('#ymp3-search').submit(function(e){
-		$('#search-preloader').show();
-		$('#result-keyword').hide();
 		var $this  = $(this);
 		e.preventDefault();
 		var searchInput = $this.find('.search-btn').val();
@@ -44,6 +42,61 @@ $(document).ready(function(){
 		document.getElementById("nav-overlay").style.width = 0;
 	});
 
+	var countries = [
+		{ value: 'Andorra', data: 'AD' },
+		{ value: 'Zimbabwe', data: 'ZZ' }
+	];
+
+
+	$('#ymp3-search-input').keyup(function(){
+		var $this = $(this),
+			searchInput = $this.val();
+
+		if (!searchInput && $this.siblings('.search-suggestions').hasClass('searching')) {
+			$this.siblings('.search-suggestions').removeClass('searching')
+			return;
+		}
+		else if(!searchInput)
+			return;
+
+		$this.siblings('.search-suggestions').addClass('searching');
+
+		$.getJSON("http://suggestqueries.google.com/complete/search?callback=?",
+			{
+				"hl":"en", // Language
+				"ds":"yt", // Restrict lookup to youtube
+				"jsonp":"suggestCallBack", // jsonp callback function name
+				"q":searchInput, // query term
+				"client":"youtube" // force youtube style response, i.e. jsonp
+			}
+		);
+
+		suggestCallBack = function (data) {
+			var dataResult = data[1].slice(5),
+				resultHtml='';
+
+			if(!dataResult.length) {
+				$('.search-suggestions .search-suggestions-res').html('<li><a href="#!">No Suggestion</a></li>');
+				return;
+			}
+			console.log(dataResult);
+
+			dataResult.forEach(function(res){
+				resultHtml+='<li><a href="#!">'+res[0]+'</a>';
+			});
+
+			loadResult(dataResult[0][0]);
+			$('.search-suggestions .search-suggestions-res').html(resultHtml);
+		};
+	});
+
+	$('#search-test').autocomplete({
+		lookup: countries,
+		onSelect: function (suggestion) {
+			alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+		}
+	});
+
 });
 /*
 Returns detail card
@@ -68,6 +121,9 @@ function getTrendingHtml(data,type){
  @param searchInput{string} Search keyword or playlist to fetch,resType{int} Search Type
 */
 function loadResult(searchInput,resType){
+
+	$('#search-preloader').show();
+	$('#result-keyword').hide();
 
 	/*Result Type
 	0:For Search

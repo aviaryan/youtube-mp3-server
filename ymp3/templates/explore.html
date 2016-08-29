@@ -22,8 +22,22 @@
           <a href="/" class="brand-logo">MusicGenie</a>
           <div class="search search--alt">
           <form id="ymp3-search" class="search-wrapper">
-              <input type="text" class="search-btn" placeholder="Search Your Favourite Song" name="keyword">
-              <button class="btn-icon-only line-height-1" type="submit"><i class="fa fa-search line-height-1 height-auto"></i></button>
+            <input type="text" id="ymp3-search-input" class="search-btn" placeholder="Search Your Favourite Song" name="keyword">
+            <div class="search-suggestions">
+              <ul class="search-suggestions-res">
+              </ul>
+              <div class="popular-suggestions">
+                <h4 class="popular-suggestions__title">Popular Playlist</h4>
+                <ul>
+                  <li><a href="#!">Pop</a></li>
+                  <li><a href="#!">Rock</a></li>
+                  <li><a href="#!">Dance</a></li>
+                  <li><a href="#!">Hello</a></li>
+                  <li><a href="#!">lorem</a></li>
+                </ul>
+              </div>
+            </div>
+            <button class="btn-icon-only line-height-1" type="submit"><i class="fa fa-search line-height-1 height-auto"></i></button>
             </form>
           </div>
           <div class="nav-addons">
@@ -118,6 +132,7 @@
   </div>
   <!--/Main Container-->
 
+
   <!--Footer Wrapper-->
   <div class="bg-color-primary overflow-hidden">
     <footer class="footer container row">
@@ -149,6 +164,7 @@
 <!-- js -->
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js"></script>
 <script src="../static/js/main_new.js"></script>
 <script>
   $(document).ready(function(){
