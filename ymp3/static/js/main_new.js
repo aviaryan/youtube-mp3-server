@@ -97,6 +97,15 @@ $(document).ready(function(){
 		$('#ymp3-search-input').val(searchInput);
 		loadResult(searchInput);
 		console.log(searchInput);
+	});
+
+	$('.popular-suggestions').on('click','.popular-suggestions_res a',function(e){
+		e.preventDefault();
+		var $this = $(this),
+			searchInput = $(this).text().trim();
+		$('#ymp3-search-input').val(searchInput);
+		loadResult(searchInput,1);
+		console.log(searchInput);
 	})
 
 });

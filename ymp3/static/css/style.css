@@ -241,6 +241,7 @@ div.search-suggestions::before{
 }
 
 div.search-suggestions li a{
+	text-transform: capitalize;
 	font-size: 1.75rem;
 	color: rgba(51,51,51,1);
 }
