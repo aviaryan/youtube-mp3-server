@@ -90,12 +90,14 @@ $(document).ready(function(){
 		};
 	});
 
-	$('#search-test').autocomplete({
-		lookup: countries,
-		onSelect: function (suggestion) {
-			alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-		}
-	});
+	$('.search-suggestions').on('click','.search-suggestions-res a',function(e){
+		e.preventDefault();
+		var $this = $(this),
+			searchInput = $(this).text().trim();
+		$('#ymp3-search-input').val(searchInput);
+		loadResult(searchInput);
+		console.log(searchInput);
+	})
 
 });
 /*

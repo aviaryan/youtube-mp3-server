@@ -205,6 +205,11 @@ input:focus ~ div.search-suggestions{
 	display: block;
 }
 
+div.search-suggestions:hover{
+	opacity: 1 !important;
+	display: block;
+}
+
 .nav--custom .search-suggestions{
 	position: absolute;
 	width: 100%;
@@ -221,7 +226,7 @@ div.search-suggestions::before{
 	content: ' ';
 	position: absolute;
 	top: -25px;
-	margin-left: -12.5px;
+	margin-left: -15px;
 	width: 0;
 	height: 0;
 	border-left: 25px solid transparent;
