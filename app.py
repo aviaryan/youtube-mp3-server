@@ -20,7 +20,7 @@ if __name__ == '__main__':
         environ.get('OPENSHIFT_PYTHON_IP', '127.0.0.1'),
         environ.get('OPENSHIFT_PYTHON_PORT', '5000')
     )
-    cmd += ' -t 90'  # 4 mins = 10 secs
+    cmd += ' --worker-connections 1000 -t 150'  # 4 mins = 10 secs
     call(cmd.split())
     # app.run(
     #     host=environ.get('OPENSHIFT_PYTHON_IP', '127.0.0.1'),

@@ -69,12 +69,25 @@ def get_video_attrs(html):
     if len(result) != 8:
         return None
     # check length
-    try:
-        dur = int(result['length'].replace(':', '').strip())  # 20 mins
-        if dur > 2000:
-            return None
-    except:
-        pass
+    if extends_length(result['length'], 20 * 60):
+        return None
     # return
-    result['get_url'] = '/g?url=' + encode_data(get_key(), id=result['id'], title=result['title'])
+    result['get_url'] = '/g?url=' + encode_data(
+        get_key(), id=result['id'],
+        title=result['title'], length=result['length']
+    )
     return result
+
+
+def extends_length(length, limit):
+    """
+    Return True if length more than limit
+    """
+    try:
+        metrics = [int(i.strip()) for i in length.split(':')]
+        secs = 0
+        for metric in metrics:
+            secs = 60 * secs + metric
+        return (secs > limit)
+    except Exception:
+        return True

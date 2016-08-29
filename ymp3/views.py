@@ -8,7 +8,7 @@ from flask import jsonify, request, render_template, url_for, make_response, Mar
 from subprocess import check_output, call
 from ymp3 import app, LOCAL
 
-from helpers.search import get_videos, get_video_attrs
+from helpers.search import get_videos, get_video_attrs, extends_length
 from helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title, \
     record_request, add_cover
 from helpers.encryption import get_key, encode_data, decode_data
@@ -61,6 +61,7 @@ def download_file():
             abr = abr if abr >= 64 else 128  # Minimum bitrate is 128
         except ValueError:
             abr = 128
+        download_album_art = request.args.get('cover', 'false').lower()
         # decode info from url
         data = decode_data(get_key(), url)
         vid_id = data['id']
@@ -70,10 +71,13 @@ def download_file():
         mp3_path = 'static/%s.mp3' % vid_id
         # ^^ vid_id regex is filename friendly [a-zA-Z0-9_-]{11}
         # download and convert
-        command = 'wget -q -O %s %s' % (m4a_path, url)
+        command = 'wget -O %s %s' % (m4a_path, url)
         check_output(command.split())
-        add_cover(m4a_path, vid_id)
+        if download_album_art == 'true':
+            add_cover(m4a_path, vid_id)
         if download_format == 'mp3':
+            if extends_length(data['length'], 20 * 60):  # sound more than 20 mins
+                raise Exception()
             command = get_ffmpeg_path()
             command += ' -i %s -acodec libmp3lame -ab %sk %s -y' % (m4a_path, abr, mp3_path)
             call(command, shell=True)  # shell=True only works, return ret_code
@@ -121,7 +125,7 @@ def get_link():
         retval = check_output(command.split())
         retval = retval.strip()
         if not LOCAL:
-            retval = encode_data(get_key(), id=vid_id, title=title, url=retval)
+            retval = encode_data(get_key(), id=vid_id, title=title, url=retval, length=data['length'])
             retval = url_for('download_file', url=retval)
 
         ret_dict = {
@@ -153,6 +157,7 @@ def search():
         search_term = request.args.get('q')
         link = 'https://www.youtube.com/results?search_query=%s' % search_term
         link += '&sp=EgIQAQ%253D%253D'  # for only video
+        link += '&gl=IN'
         raw_html = open_page(link)
         vids = get_videos(raw_html)
         ret_vids = []
@@ -249,7 +254,7 @@ def get_log_page():
     except Exception:
         number = 0
 
-    resultset = get_api_log(number, offset)
+    result = get_api_log(number, offset)
 
     if offset - number < 0:
         prev_link = None
@@ -266,9 +271,20 @@ def get_log_page():
         offset + number
     )
 
+    day_path = result['day_path']
+    day_sum = sum([x[1] for x in day_path])
+
+    month_path = result['month_path']
+    month_sum = sum([x[1] for x in month_path])
+
+    all_path = result['all_path']
+    all_sum = sum([x[1] for x in all_path])
+
     return render_template(
-        '/log_page.html', logs=resultset, number=number, offset=offset,
-        prev_link=prev_link, next_link=next_link
+        '/log_page.html', logs=result['logs'], number=number, offset=offset, prev_link=prev_link, next_link=next_link,
+        day_path=day_path, day_sum=day_sum, month_path=month_path, month_sum=month_sum, all_path=result['all_path'],
+        all_sum=all_sum, popular_queries=result['popular_query']
+
     )
 
 

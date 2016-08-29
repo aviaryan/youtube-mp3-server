@@ -3,34 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <title>API calls made to server</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 </head>
 <body>
 
-    <div style="margin: 10px">
-        <table border="1">
+    <div class="container">
+
+        <h1 class="center-align" style="margin-bottom: 50px;">Insights of API calls to MusicGenie</h1>
+        <div class="row" style="border-top: 1px black solid;">
+            <div class="col s6 m4 l4">
+                <h3>API calls</h3>
+            </div>
+            <div class="pull-right">
+                {% if prev_link %}
+                    <a href="{{ prev_link }}">Previous&nbsp;</a>
+                {% else %}
+                    Previous&nbsp;
+                {% endif %}
+                <a href="{{ next_link }}">Next</a>
+            </div>
+        </div>
+
+        <table class="bordered responsive-table">
             <thead>
                 <th>Path</th>
                 <th>Arguments</th>
-                <th>Access Route</th>
+                <th>Route</th>
                 <th>User Agent</th>
-                <th>Time</th>
+                <th>Request Time (IST)</th>
             </thead>
+            <tbody>
             {% for row in logs %}
-            <tr>
-                <td>{{ row['path'] }}</td>
-                <td>{{ row['args'][:50] }}</td>
-                <td>{{ row['access_route'] }}</td>
-                <td>{{ row['user_agent'] }}</td>
-                <td>{{ row['request_time'] }}</td>
-            </tr>
+                <tr>
+                    <td>{{ row['path'] }}</td>
+                    <td>{{ row['args'][:50] }}</td>
+                    <td>{{ row['access_route'] }}</td>
+                    <td>{{ row['user_agent'] }}</td>
+                    <td>{{ row['request_time'] }}</td>
+                </tr>
             {% endfor %}
+            </tbody>
         </table>
-        {% if prev_link %}
-            <a href="{{ prev_link }}">Previous&nbsp;</a>
-        {% else %}
-            Previous&nbsp;
-        {% endif %}
-        <a href="{{ next_link }}">Next</a>
+
+        <div class="row">
+            <div class="col s12 l6 m6">
+                <h3 style="border-top: 1px black solid;">Insights of Day</h3>
+                <table class="bordered table-responsive">
+                    <thead>
+                        <th>Path</th>
+                        <th>Number of Calls</th>
+                    </thead>
+                    <tbody>
+                        {% for elem in day_path %}
+                        <tr>
+                            <td>{{ elem[0] }}</td>
+                            <td>{{ elem[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td>{{ day_sum }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s12 l6 m6">
+                <h3 style="border-top: 1px black solid;">Insights of Month</h3>
+                <table class="bordered table-responsive">
+                    <thead>
+                        <th>Path</th>
+                        <th>Number of Calls</th>
+                    </thead>
+                    <tbody>
+                        {% for elem in month_path %}
+                        <tr>
+                            <td>{{ elem[0] }}</td>
+                            <td>{{ elem[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td>{{ month_sum }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s12 l6 m6">
+                <h3 style="border-top: 1px black solid;">All Time Insights</h3>
+                <table class="bordered table-responsive">
+                    <thead>
+                        <th>Path</th>
+                        <th>Number of Calls</th>
+                    </thead>
+                    <tbody>
+                        {% for elem in all_path %}
+                        <tr>
+                            <td>{{ elem[0] }}</td>
+                            <td>{{ elem[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td>{{ all_sum }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col s12 l6 m6">
+                <h3 style="border-top: 1px black solid;">Popular Searches</h3>
+                <table class="bordered table-responsive">
+                    <thead>
+                        <th>Query</th>
+                        <th>Number of searches</th>
+                    </thead>
+                    <tbody>
+                        {% for elem in popular_queries %}
+                        <tr>
+                            <td>{{ elem[0] }}</td>
+                            <td>{{ elem[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>
