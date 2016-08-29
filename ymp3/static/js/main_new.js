@@ -42,16 +42,12 @@ $(document).ready(function(){
 		document.getElementById("nav-overlay").style.width = 0;
 	});
 
-	var countries = [
-		{ value: 'Andorra', data: 'AD' },
-		{ value: 'Zimbabwe', data: 'ZZ' }
-	];
-
-
+	//Auto Suggestion on click
 	$('#ymp3-search-input').keyup(function(){
 		var $this = $(this),
 			searchInput = $this.val();
 
+		//Aborts on no input and loads playlist item
 		if (!searchInput && $this.siblings('.search-suggestions').hasClass('searching')) {
 			$this.siblings('.search-suggestions').removeClass('searching')
 			return;
@@ -59,8 +55,10 @@ $(document).ready(function(){
 		else if(!searchInput)
 			return;
 
+		//Hides Playlist items
 		$this.siblings('.search-suggestions').addClass('searching');
 
+		//Fetches Auto Suggestion
 		$.getJSON("http://suggestqueries.google.com/complete/search?callback=?",
 			{
 				"hl":"en", // Language
@@ -71,6 +69,7 @@ $(document).ready(function(){
 			}
 		);
 
+		//Callback on response
 		suggestCallBack = function (data) {
 			var dataResult = data[1].slice(5),
 				resultHtml='';
@@ -79,33 +78,37 @@ $(document).ready(function(){
 				$('.search-suggestions .search-suggestions-res').html('<li><a href="#!">No Suggestion</a></li>');
 				return;
 			}
-			console.log(dataResult);
+			//console.log(dataResult);
 
+			//Appends Reults
 			dataResult.forEach(function(res){
 				resultHtml+='<li><a href="#!">'+res[0]+'</a>';
 			});
-
-			loadResult(dataResult[0][0]);
+			loadResult(dataResult[0][0]);//Loads firest item of result
 			$('.search-suggestions .search-suggestions-res').html(resultHtml);
 		};
 	});
 
+	//Loads results on clicking auto suggestion list item
 	$('.search-suggestions').on('click','.search-suggestions-res a',function(e){
 		e.preventDefault();
 		var $this = $(this),
 			searchInput = $(this).text().trim();
-		$('#ymp3-search-input').val(searchInput);
-		loadResult(searchInput);
-		console.log(searchInput);
+
+		$('#ymp3-search-input').val(searchInput);//Changes value of search bar
+		loadResult(searchInput);//Loads Results
+		//console.log(searchInput);
 	});
 
+	//Loads results on clicking playlist item from auto suggestion
 	$('.popular-suggestions').on('click','.popular-suggestions_res a',function(e){
 		e.preventDefault();
 		var $this = $(this),
 			searchInput = $(this).text().trim();
-		$('#ymp3-search-input').val(searchInput);
-		loadResult(searchInput,1);
-		console.log(searchInput);
+
+		$('#ymp3-search-input').val(searchInput);//Changes value of search bar
+		loadResult(searchInput,1);//Loads Playlist
+		//console.log(searchInput);
 	})
 
 });
