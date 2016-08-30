@@ -272,6 +272,9 @@ div.search-suggestions li a{
 	color: rgba(51,51,51,1);
 	padding: 0 2rem;
 	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .popular-suggestions .popular-suggestions__title{

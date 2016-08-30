@@ -179,6 +179,8 @@
       $('#search-preloader').show();
       $('#ymp3-search input').val(queryString);
       loadResult(queryString);
+      $('.search-suggestions').addClass('searching');
+      loadAutoSuggest(queryString);//Loads the auto suggest
     }
     else if(playlist.length){//loads playlist item through get param
       $('#search-preloader').show();

@@ -60,35 +60,7 @@ $(document).ready(function(){
 		//Hides Playlist items
 		$this.siblings('.search-suggestions').addClass('searching');
 
-		//Fetches Auto Suggestion
-		$.getJSON("http://suggestqueries.google.com/complete/search?callback=?",
-			{
-				"hl":"en", // Language
-				"ds":"yt", // Restrict lookup to youtube
-				"jsonp":"suggestCallBack", // jsonp callback function name
-				"q":searchInput, // query term
-				"client":"youtube" // force youtube style response, i.e. jsonp
-			}
-		);
-
-		//Callback on response
-		suggestCallBack = function (data) {
-			var dataResult = data[1].slice(5),
-				resultHtml='';
-
-			if(!dataResult.length) {
-				$('.search-suggestions .search-suggestions-res').html('<li><a href="#!">No Suggestion</a></li>');
-				return;
-			}
-			//console.log(dataResult);
-
-			//Appends Reults
-			dataResult.forEach(function(res){
-				resultHtml+='<li><a href="/explore?q='+res[0].trim()+'">'+res[0]+'</a>';
-			});
-			//loadResult(dataResult[0][0]);//Loads first item of result
-			$('.search-suggestions .search-suggestions-res').html(resultHtml);
-		};
+		loadAutoSuggest(searchInput);//Loads the auto suggest
 	});
 
 	//Loads results on clicking auto suggestion list item
@@ -97,7 +69,8 @@ $(document).ready(function(){
 		var $this = $(this),
 			searchInput = $(this).text().trim();
 
-		$('#ymp3-search-input').val(searchInput);//Changes value of search bar
+		$('.ymp3-search-input').val(searchInput);//Changes value of search bar
+		loadAutoSuggest(searchInput);
 		loadResult(searchInput);//Loads Results
 		//console.log(searchInput);
 	});
@@ -108,7 +81,7 @@ $(document).ready(function(){
 		var $this = $(this),
 			searchInput = $(this).text().trim();
 
-		$('#ymp3-search-input').val(searchInput);//Changes value of search bar
+		$('.ymp3-search-input').val(searchInput);//Changes value of search bar
 		loadResult(searchInput,1);//Loads Playlist
 		//console.log(searchInput);
 	})
@@ -204,4 +177,40 @@ function trendingInit(count){
 			loadTrending(results[i]['playlist'],4);
 		}
 	})
+}
+
+/*
+ Loads autocomplete
+ @param:{string} the keyword for autocomplete
+ */
+function loadAutoSuggest(searchInput) {
+	//Fetches Auto Suggestion
+	$.getJSON("http://suggestqueries.google.com/complete/search?callback=?",
+		{
+			"hl":"en", // Language
+			"ds":"yt", // Restrict lookup to youtube
+			"jsonp":"suggestCallBack", // jsonp callback function name
+			"q":searchInput, // query term
+			"client":"youtube" // force youtube style response, i.e. jsonp
+		}
+	);
+
+	//Callback on response
+	suggestCallBack = function (data) {
+		var dataResult = data[1].slice(5),
+			resultHtml='';
+
+		if(!dataResult.length) {
+			$('.search-suggestions .search-suggestions-res').html('<li><a href="#!">No Suggestion</a></li>');
+			return;
+		}
+		//console.log(dataResult);
+
+		//Appends Reults
+		dataResult.forEach(function(res){
+			resultHtml+='<li><a href="/explore?q='+res[0].trim()+'">'+res[0]+'</a>';
+		});
+		//loadResult(dataResult[0][0]);//Loads first item of result
+		$('.search-suggestions .search-suggestions-res').html(resultHtml);
+	};
 }
