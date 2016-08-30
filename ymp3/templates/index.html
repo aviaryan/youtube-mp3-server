@@ -54,8 +54,24 @@
       <div class="search-exp">
         <!--Search form-->
         <div class="search search--lg">
-          <form action="explore" class="search-wrapper">
-            <input type="text" class="search-btn" placeholder="Search Your Favourite Song" name="q">
+          <form action="explore" class="search-wrapper" autocomplete="off">
+            <input type="text" class="search-btn ymp3-search-input" placeholder="Search Your Favourite Song" name="q">
+            <div class="search-suggestions">
+              <ul class="search-suggestions-res">
+              </ul>
+             <!-- <div class="popular-suggestions">
+                <h4 class="popular-suggestions__title">Popular Playlist</h4>
+                <ul class="popular-suggestions_res">
+                  <li><a href="#!">popular</a></li>
+                  <li><a href="#!">latest</a></li>
+                  <li><a href="#!">pop</a></li>
+                  <li><a href="#!">electronic</a></li>
+                  <li><a href="#!">hiphop</a></li>
+                  <li><a href="#!">country</a></li>
+                  <li><a href="#!">india</a></li>
+                </ul>
+              </div>-->
+            </div>
             <button class="btn-icon-only" type="submit"><i class="fa fa-2x fa-search"></i></button>
           </form>
         </div>
@@ -149,7 +165,7 @@
     });
 
 //    Initialise trending playlist
-    trendingInit(playlistCount);
+//    trendingInit(playlistCount);
 
   });
 </script>

@@ -43,13 +43,15 @@ $(document).ready(function(){
 	});
 
 	//Auto Suggestion on click
-	$('#ymp3-search-input').keyup(function(){
+	$('.ymp3-search-input').keyup(function(){
 		var $this = $(this),
 			searchInput = $this.val();
 
+		console.log(searchInput);
+
 		//Aborts on no input and loads playlist item
 		if (!searchInput && $this.siblings('.search-suggestions').hasClass('searching')) {
-			$this.siblings('.search-suggestions').removeClass('searching')
+			$this.siblings('.search-suggestions').removeClass('searching');
 			return;
 		}
 		else if(!searchInput)
@@ -82,15 +84,15 @@ $(document).ready(function(){
 
 			//Appends Reults
 			dataResult.forEach(function(res){
-				resultHtml+='<li><a href="#!">'+res[0]+'</a>';
+				resultHtml+='<li><a href="/explore?q='+res[0].trim()+'">'+res[0]+'</a>';
 			});
-			loadResult(dataResult[0][0]);//Loads firest item of result
+			//loadResult(dataResult[0][0]);//Loads first item of result
 			$('.search-suggestions .search-suggestions-res').html(resultHtml);
 		};
 	});
 
 	//Loads results on clicking auto suggestion list item
-	$('.search-suggestions').on('click','.search-suggestions-res a',function(e){
+	$('.nav--custom .search-suggestions').on('click','.search-suggestions-res a',function(e){
 		e.preventDefault();
 		var $this = $(this),
 			searchInput = $(this).text().trim();
