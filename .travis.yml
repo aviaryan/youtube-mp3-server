@@ -2,7 +2,6 @@ language: python
 python:
   - "2.7"
 before_install:
-  - sudo apt-get --purge remove postgresql -y
   - sudo apt-get update -qq
   - sudo apt-get install -qq libpq-dev postgresql python2.7-dev postgresql-contrib
 env:
@@ -11,7 +10,7 @@ env:
   PATH: $PATH:$(pwd)/ffmpeg
   OPENSHIFT_POSTGRESQL_DB_HOST: localhost
   OPENSHIFT_POSTGRESQL_DB_USERNAME: ymp3
-  OPENSHIFT_POSTGRESQL_DB_PORT: 5432
+  OPENSHIFT_POSTGRESQL_DB_PORT: 5433
   OPENSHIFT_POSTGRESQL_DB_PASSWORD: ymp3
   POSTGRESQL_DB_NAME: ymp3
   PLAYLIST_VIDEOS_LIMIT: 6
@@ -29,9 +28,9 @@ install:
 
 before_script:
   - sudo service postgresql start
-  - psql -c "CREATE DATABASE ymp3;" -U postgres
-  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres
-  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres
+  - psql -c "CREATE DATABASE ymp3;" -U postgres -p 5433
+  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres -p 5433
+  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres -p 5433
 
 script:
   # install ffmpeg
