@@ -3,14 +3,14 @@ python:
   - "2.7"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libpq-dev postgresql python2.7-dev postgresql-contrib
+  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql-contrib-9.4
 env:
   APP_CONFIG: "config.TestingConfig"
   DOCKER_COMPOSE_VERSION: 1.8.0
   PATH: $PATH:$(pwd)/ffmpeg
   OPENSHIFT_POSTGRESQL_DB_HOST: localhost
   OPENSHIFT_POSTGRESQL_DB_USERNAME: ymp3
-  OPENSHIFT_POSTGRESQL_DB_PORT: 5433
+  OPENSHIFT_POSTGRESQL_DB_PORT: 5432
   OPENSHIFT_POSTGRESQL_DB_PASSWORD: ymp3
   POSTGRESQL_DB_NAME: ymp3
   PLAYLIST_VIDEOS_LIMIT: 6
@@ -28,9 +28,9 @@ install:
 
 before_script:
   - sudo service postgresql start
-  - psql -c "CREATE DATABASE ymp3;" -U postgres -p 5433
-  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres -p 5433
-  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres -p 5433
+  - psql -c "CREATE DATABASE ymp3;" -U postgres -p 5432
+  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres -p 5432
+  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres -p 5432
 
 script:
   # install ffmpeg
@@ -39,7 +39,7 @@ script:
   - make test
 
 addons:
-  postgresql: "9.6"
+  postgresql: "9.4"
 
 # https://docs.travis-ci.com/user/docker/#Using-Docker-Compose
 # before_install:
