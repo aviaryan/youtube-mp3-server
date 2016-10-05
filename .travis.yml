@@ -2,6 +2,7 @@ language: python
 python:
   - "2.7"
 before_install:
+  - sudo apt-get --purge remove postgresql -y
   - sudo apt-get update -qq
   - sudo apt-get install -qq libpq-dev postgresql python2.7-dev postgresql-contrib
 env:
