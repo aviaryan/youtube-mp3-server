@@ -27,10 +27,9 @@ install:
   - docker run -d -p 127.0.0.1:80:5000 --name ymp3 ymp3
 
 before_script:
-  - sudo service postgresql start
-  - psql -c "CREATE DATABASE ymp3;" -U postgres -p 5432
-  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres -p 5432
-  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres -p 5432
+  - psql -c "CREATE DATABASE ymp3;" -U postgres
+  - psql -c "CREATE USER ymp3 WITH PASSWORD 'ymp3';" -U postgres
+  - psql -c "GRANT ALL ON DATABASE ymp3 TO ymp3;" -U postgres
 
 script:
   # install ffmpeg
