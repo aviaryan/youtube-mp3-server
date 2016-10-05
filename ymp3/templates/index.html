@@ -120,15 +120,20 @@
   </div>
 
   <!--Fixed Items-->
-  <div id="stream-player-modal" class="modal bottom-sheet">
-    <div class="modal-content">
-      <audio id="stream-player" src="" controls preload="metadata">
-      </audio>
+  <div id="stream-player-container" class="stream-player no-music">
+
+    <!--Preloader-->
+
+    <div class="stream-progress valign-wrapper">
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
+
+    <audio id="stream-player" src="" controls preload="metadata">
+    </audio>
   </div>
+
 </div>
 
 
