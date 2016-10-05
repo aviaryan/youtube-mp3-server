@@ -253,6 +253,10 @@ function startStream(streamPlayer,streamUrl) {
 	$streamContainer = $('#stream-player-container');
 	// $streamModel.openModal();
 	$streamContainer.addClass('stream-wait');
+
+	if($streamContainer.hasClass('no-music')){
+		$streamContainer.removeClass('no-music')
+	}
 	// $('#stream-preloader').show();
 
 	$.getJSON(streamUrl, success=function(data, textStatus, jqXHR){

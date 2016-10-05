@@ -666,7 +666,7 @@ div.search-suggestions li a{
 	margin: 0 auto;
 }
 
-#stream-preloader{
+#stream-preloader,.stream-progress{
 	display: none;
 }
 
@@ -674,8 +674,21 @@ div.search-suggestions li a{
 	display: none;
 }
 
-.stream-wait #stream-preloader{
-	display: block;
+.stream-wait #stream-preloader,.stream-wait .stream-progress{
+	display: flex;
+}
+
+#stream-player-container .progress{
+	background-color: rgba(244, 67, 54, 0.2);
+}
+
+ #stream-player-container .progress .indeterminate{
+	background-color: rgba(244, 67, 54,0.75);
+}
+
+
+#stream-player-container.no-music{
+	transform: translateY(75px);
 }
 
 #stream-player-container{
@@ -688,12 +701,33 @@ div.search-suggestions li a{
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	border: 1px solid rgba(198,214,219,.66);
 	left: 1px;
+	transform: translateY(0);
+	transition: transform 0.5s;
 }
 
 
 /*Plyr Overwrite*/
 .plyr--audio .plyr__controls{
 	border: 0;
+}
+
+.plyr__progress--played, .plyr__volume--display{
+	color: rgba(244, 67, 54,0.75);
+}
+.plyr--audio .plyr__controls button.tab-focus:focus, .plyr--audio .plyr__controls button:hover, .plyr__play-large{
+	background: rgba(244, 67, 54,0.75);
+}
+
+.plyr input[type=range]::-ms-fill-lower, .plyr input[type=range]:active::-moz-range-thumb, .plyr input[type=range]:active::-webkit-slider-thumb, .plyr input[type=range]:active::-ms-thumb {
+	background: rgba(244, 67, 54,0.75);
+}
+
+.stream-progress{
+	min-height: 52px;
+}
+
+.stream-progress .progress{
+	width: 60%;
 }
 
 /************************
