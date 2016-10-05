@@ -37,6 +37,8 @@ $(document).ready(function(){
 		e.preventDefault();
 		document.getElementById("nav-overlay").style.width = "100%";
 	});
+
+
 	$('#nav-overlay .closebtn').click(function(e){
 		e.preventDefault();
 		document.getElementById("nav-overlay").style.width = 0;
@@ -84,8 +86,17 @@ $(document).ready(function(){
 		$('.ymp3-search-input').val(searchInput);//Changes value of search bar
 		loadResult(searchInput,1);//Loads Playlist
 		//console.log(searchInput);
-	})
+	});
 
+	$('body').on('click','.stream-btn a',function (e) {
+		e.preventDefault();
+		var streamUrl = $(this).data('stream-url');
+		// $('#stream-player-modal').openModal();
+		startStream(streamUrl);
+		// console.log("qrr");
+	});
+
+	plyr.setup(document.querySelector('#stream-player'));
 });
 /*
 Returns detail card
@@ -93,7 +104,7 @@ Returns detail card
 @returns data{string}: card HTML
 */
 function getCardHtml(data){
-	return '<div class="col s6 m4 l3"><div class="card card--ym3"><a data-get-url="'+data['get_url']+'" class="card-image waves-effect waves-block waves-light ymp3-download"><img class="activator" src="'+data["thumb"]+'"><div class="card-overlay overlay--dark"></div><div class="meta-duration ">'+data["length"]+'</div><span href="#!" class="btn-dwn valign-wrapper"><i class="valign fa fa-spinner fa-pulse fa-3x fa-fw"></i><i class="valign fa fa-arrow-down" aria-hidden="true"></i><i class="valign fa fa-check fa-2x" aria-hidden="true"></i></span></a><div class="card-content"><span class="activator card--ym3--title flow-text">'+data["title"]+'</span><div class="meta"><div class="channel color-primary"><i class="fa fa-bullseye" aria-hidden="true"></i>'+data["uploader"]+'</div><div class="views color-primary"><i class="fa fa-eye" aria-hidden="true"></i>'+data["views"]+'</div></div></div><div class="card-reveal"><span class="card-title color-primary activator"><i class="fa fa-times right"></i>'+data["title"]+'</span><p class="flow-text">'+data['description']+'</p></div></div></div>';
+	return '<div class="col s6 m4 l3"><div class="card card--ym3"><a data-get-url="'+data['get_url']+'" class="card-image waves-effect waves-block waves-light ymp3-download"><img class="activator" src="'+data["thumb"]+'"><div class="card-overlay overlay--dark"></div><div class="meta-duration ">'+data["length"]+'</div><span href="#!" class="btn-dwn valign-wrapper"><i class="valign fa fa-spinner fa-pulse fa-3x fa-fw"></i><i class="valign fa fa-arrow-down" aria-hidden="true"></i><i class="valign fa fa-check fa-2x" aria-hidden="true"></i></span></a><div class="card-content"><span class="activator card--ym3--title flow-text">'+data["title"]+'</span><div class="meta"><div class="channel color-primary"><i class="fa fa-bullseye" aria-hidden="true"></i>'+data["uploader"]+'</div><div class="views color-primary"><i class="fa fa-eye" aria-hidden="true"></i>'+data["views"]+'</div></div><div class="stream-btn"><a data-stream-url="'+data['stream_url']+'" class="tooltipped modal-trigger" data-position="bottom" data-delay="50" data-tooltip="I am tooltip" href="#stream-player"><i class="fa fa-play-circle-o" aria-hidden="true"></i></a></div></div><div class="card-reveal"><span class="card-title color-primary activator"><i class="fa fa-times right"></i>'+data["title"]+'</span><p class="flow-text">'+data['description']+'</p></div></div></div>';
 }
 
 /*
@@ -149,13 +160,11 @@ function loadResult(searchInput,resType){
 
 		if(resType == 1) {
 			dataResult[data["metadata"]["type"]].forEach(function(res){
-				var resHtml;
 				$('#search-result').append(getCardHtml(res));
 			});
 
 		} else {
 			dataResult.forEach(function(res){
-				var resHtml;
 				$('#search-result').append(getCardHtml(res));
 			});
 		}
@@ -234,4 +243,22 @@ function loadAutoSuggest(searchInput) {
 		//loadResult(dataResult[0][0]);//Loads first item of result
 		$('.search-suggestions .search-suggestions-res').html(resultHtml);
 	};
+}
+
+function startStream(streamUrl) {
+	console.log(streamUrl);
+	$('#stream-player-modal').openModal();
+
+	$.getJSON(streamUrl, success=function(data, textStatus, jqXHR){
+		if (data['status'] != 200){
+			Materialize.toast('<h4 class="font-200">Can\'t Stream</h4>', 4000);
+			return;
+		}
+		console.log(data);
+		$('#stream-player').attr('src',data['url']);
+		/*elem.hide();
+		elem.siblings('audio').attr('src', data['url']);
+		elem.siblings('audio').show();*/
+	});
+	return false;
 }

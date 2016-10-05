@@ -75,7 +75,7 @@ body{
 }
 
 .font-200{
-	font-weight: 200;
+	font-weight: 200 !important;
 }
 
 .bg-color-primary{
@@ -383,6 +383,22 @@ div.search-suggestions li a{
 	font-size: 1.25rem;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	display: inline-block;
+}
+
+.card--ym3 .stream-btn{
+	display: inline-block;
+	float: right;
+	font-size: 2.8rem;
+}
+
+.card--ym3 .stream-btn a{
+	color: rgb(51,51,51);
+	transition: all 0.3s;
+}
+
+.card--ym3 .stream-btn a:hover{
+	color: rgba(244, 67, 54,0.85);
 }
 
 .meta div i{
@@ -398,6 +414,7 @@ div.search-suggestions li a{
 	cursor: pointer;
 	white-space: nowrap;
 	font-weight: normal;
+	display: block;
 }
 
 .card-image .meta-duration{
@@ -641,9 +658,18 @@ div.search-suggestions li a{
 	margin-bottom: 4rem;
 }
 
-#search-preloader .preloader-wrapper{
+#search-preloader .preloader-wrapper,#stream-preloader .preloader-wrapper{
 	display: block;
 	margin: 0 auto;
+}
+
+#stream-player{
+	display: none;
+	margin-bottom: 4rem;
+}
+
+#stream-player-modal .plyr__controls{
+	display: none;
 }
 
 /************************

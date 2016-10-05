@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:200,400,600" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdn.plyr.io/2.0.7/plyr.css">
   <link rel="stylesheet" type="text/css" href="../static/css/style.css">
   <title>Youtube MP3 Downloader</title>
 </head>
@@ -161,11 +162,68 @@
       </div>
     </footer>
   </div>
+
+  <!--Fixed Items-->
+  <div id="stream-player-modal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <div class="white-space space-sm"></div>
+      <!--Preloader-->
+      <div id="stream-preloader">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+          <div class="white-space space-sm"></div>
+        </div>
+      </div>
+
+      <audio id="stream-player" src="http://ymp3.aavi.me/api/v1/stream_handler?url=fSR3dG4kPCIkanZ2cnU8MTF0Ny8vL3VwL3I3c251cGd8MGlxcWluZ3hrZmdxMGVxbzF4a2ZncXJuY3tkY2VtQXdycD85OnM0aW12dXV4ZShvbz81MyhvcD91cC9yN3NudXBnfChrZj9xL0NKXGFrQ25LS3w3Mlt8UFNJdXlubGZkSGlZb2V7S3NPTnZpN2Y1WkdXdzg0KG92PzM2OTc3MzkzMzUoaWt0P3tndShvdT9jdyhrcj83NjA6NjAyMDM6OyhtZ3s_e3Y4KG9rb2c_Y3dma3EnNEh5Z2RvKGlldD93dSh0Z3N3a3RndXVuP3tndSh1cmN0Y291P2VuZ3AnNEVmd3QnNEVnayc0RWlldCc0RWlrdCc0RWtmJzRFa3InNEVrcmRrdnUnNEVrdmNpJzRFbWdncmNua3hnJzRFbm92JzRFb2tvZyc0RW9vJzRFb3AnNEVvdSc0RW94JzRFcGonNEVybic0RXRnc3drdGd1dW4nNEV1cXd0ZWcnNEV3cnAnNEVnenJrdGcoZ2s_bTc5e1hhfDVLOlJSOmlWV3c3dFNEQyhub3Y_MzY2Ozc5NTsyNTU0MzgyOyhwaj9LaXJ5ZWxDfE5vbmpcRks0TWltek9sZXdPRTZ5TmxHKGd6cmt0Zz8zNjk3NzU7ODs7KHVxd3RlZz97cXd2d2RnKG1nZ3Jjbmt4Zz97Z3UoZnd0PzkyNzA7NDMocm4_Mzcoa3ZjaT80NjsoZW5ncD82ODk4MjU0KGtyZGt2dT8yKG94P3codWtpcGN2d3RnPzdENzZFREVDRTdESDM0RDM0RTY2RDs1Q0g3RDdIRTs7ODhGRjk5SDUwRDYzNkY4NUU1RjQ3OUNGMkc1Q0RDNTNEO0ZGQzVFRUYyODhIRzs5OSh0Y3ZnZHtyY3V1P3tndSR_" controls preload="metadata">
+      </audio>
+      <div class="white-space space-sm"></div>
+    </div>
+  </div>
 </div>
 
 <!-- js -->
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="https://cdn.plyr.io/2.0.7/plyr.js"></script>
 <script src="../static/js/main_new.js"></script>
 <script>
   $(document).ready(function(){
