@@ -601,7 +601,6 @@ div.search-suggestions li a{
 	display: flex;
 	margin-bottom: 0;
 	align-items: center;
-	padding: 1rem 0;
 }
 
 
@@ -748,6 +747,9 @@ div.search-suggestions li a{
 	.nav--custom .nav-wrapper{
 		padding: 0 2.8rem;
 	}
+	#stream-player-container{
+		padding: 1rem 1rem;
+	}
 }
 
 @media only screen and (max-width: 768px) {
@@ -759,6 +761,10 @@ div.search-suggestions li a{
 		width: 100%;
 		float: none;
 		text-align: center;
+	}
+
+	#stream-player-container{
+		padding: 1rem 2rem;
 	}
 }
 
@@ -777,4 +783,5 @@ div.search-suggestions li a{
 		-webkit-transform: translateX(0);
 		transform: translateX(0);
 	}
+
 }
