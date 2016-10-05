@@ -3,7 +3,7 @@ python:
   - "2.7"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql-contrib-9.5
+  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql-contrib
 env:
   APP_CONFIG: "config.TestingConfig"
   DOCKER_COMPOSE_VERSION: 1.8.0
@@ -37,6 +37,8 @@ script:
   # test
   - make test
 
+addons:
+  postgresql: "9.6"
 # https://docs.travis-ci.com/user/docker/#Using-Docker-Compose
 # before_install:
 #   - sudo apt-get update
