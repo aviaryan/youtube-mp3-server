@@ -248,7 +248,6 @@ function loadAutoSuggest(searchInput) {
 }
 
 function startStream(streamPlayer,streamUrl) {
-	console.log(streamUrl);
 	streamPlayer[0].pause();
 	$streamContainer = $('#stream-player-container');
 	// $streamModel.openModal();
@@ -257,21 +256,16 @@ function startStream(streamPlayer,streamUrl) {
 	if($streamContainer.hasClass('no-music')){
 		$streamContainer.removeClass('no-music')
 	}
-	// $('#stream-preloader').show();
 
 	$.getJSON(streamUrl, success=function(data, textStatus, jqXHR){
 		$('#stream-player-container').removeClass('stream-wait');
-		// $('#stream-preloader').hide();
 		if (data['status'] != 200){
 			Materialize.toast('<h4 class="font-200">Can\'t Stream</h4>', 4000);
 			return;
 		}
-		console.log(data);
+
 		$('#stream-player').attr('src',data['url']);
 		streamPlayer[0].play();
-		/*elem.hide();
-		elem.siblings('audio').attr('src', data['url']);
-		elem.siblings('audio').show();*/
 	});
 	return false;
 }
