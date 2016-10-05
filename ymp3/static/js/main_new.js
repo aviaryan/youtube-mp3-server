@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+
+	// initializing Stream Player
+	var streamPlayer = plyr.setup(document.querySelector('#stream-player'));
+
 	//Search event listener
 	$('#ymp3-search').submit(function(e){
 		var $this  = $(this);
@@ -92,11 +96,9 @@ $(document).ready(function(){
 		e.preventDefault();
 		var streamUrl = $(this).data('stream-url');
 		// $('#stream-player-modal').openModal();
-		startStream(streamUrl);
+		startStream(streamPlayer,streamUrl);
 		// console.log("qrr");
 	});
-
-	plyr.setup(document.querySelector('#stream-player'));
 });
 /*
 Returns detail card
@@ -245,17 +247,24 @@ function loadAutoSuggest(searchInput) {
 	};
 }
 
-function startStream(streamUrl) {
+function startStream(streamPlayer,streamUrl) {
 	console.log(streamUrl);
-	$('#stream-player-modal').openModal();
+	streamPlayer[0].pause();
+	$streamContainer = $('#stream-player-container');
+	// $streamModel.openModal();
+	$streamContainer.addClass('stream-wait');
+	// $('#stream-preloader').show();
 
 	$.getJSON(streamUrl, success=function(data, textStatus, jqXHR){
+		$('#stream-player-container').removeClass('stream-wait');
+		// $('#stream-preloader').hide();
 		if (data['status'] != 200){
 			Materialize.toast('<h4 class="font-200">Can\'t Stream</h4>', 4000);
 			return;
 		}
 		console.log(data);
 		$('#stream-player').attr('src',data['url']);
+		streamPlayer[0].play();
 		/*elem.hide();
 		elem.siblings('audio').attr('src', data['url']);
 		elem.siblings('audio').show();*/

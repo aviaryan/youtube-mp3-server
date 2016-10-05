@@ -384,6 +384,7 @@ div.search-suggestions li a{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: inline-block;
+	width: calc(100% - 35px);
 }
 
 .card--ym3 .stream-btn{
@@ -415,6 +416,8 @@ div.search-suggestions li a{
 	white-space: nowrap;
 	font-weight: normal;
 	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .card-image .meta-duration{
@@ -663,13 +666,34 @@ div.search-suggestions li a{
 	margin: 0 auto;
 }
 
-#stream-player{
+#stream-preloader{
 	display: none;
-	margin-bottom: 4rem;
 }
 
-#stream-player-modal .plyr__controls{
+.stream-wait .plyr__controls{
 	display: none;
+}
+
+.stream-wait #stream-preloader{
+	display: block;
+}
+
+#stream-player-container{
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+	width: 100%;
+	background-color: rgb(255, 255, 255);
+	padding: 1rem 5rem;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	border: 1px solid rgba(198,214,219,.66);
+	left: 1px;
+}
+
+
+/*Plyr Overwrite*/
+.plyr--audio .plyr__controls{
+	border: 0;
 }
 
 /************************
