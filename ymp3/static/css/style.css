@@ -703,8 +703,10 @@ div.search-suggestions li a{
 	transition: transform 0.5s;
 }
 
+/************************
+** Plyr Style Overwrite *********
+*************************/
 
-/*Plyr Overwrite*/
 .plyr--audio .plyr__controls{
 	border: 0;
 }
@@ -719,6 +721,16 @@ div.search-suggestions li a{
 .plyr input[type=range]::-ms-fill-lower, .plyr input[type=range]:active::-moz-range-thumb, .plyr input[type=range]:active::-webkit-slider-thumb, .plyr input[type=range]:active::-ms-thumb {
 	background: rgba(244, 67, 54,0.75);
 }
+
+.plyr{
+	padding: 0 0 0 1rem;
+}
+
+
+/*************************
+** Streaming Player Style**
+*************************/
+
 
 .stream-progress{
 	min-height: 52px;
@@ -782,11 +794,6 @@ input[type=range]+.thumb.active{
 	font-size: 1.25rem;
 	color: rgba(244, 67, 54,0.85);
 }
-
-.plyr{
-	padding: 0 0 0 1rem;
-}
-
 /************************
 ** Media Queries *********
 *************************/

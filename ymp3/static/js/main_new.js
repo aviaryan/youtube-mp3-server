@@ -92,6 +92,7 @@ $(document).ready(function(){
 		//console.log(searchInput);
 	});
 
+	//Loads selected song for streaming
 	$('body').on('click','.stream-btn a',function (e) {
 		e.preventDefault();
 		var $this  = $(this);
@@ -109,7 +110,8 @@ $(document).ready(function(){
 		// console.log("qrr");
 	});
 });
-/*
+
+/**
 Returns detail card
 @param {object}: card data
 @returns data{string}: card HTML
@@ -118,7 +120,7 @@ function getCardHtml(data){
 	return '<div class="col s6 m4 l3"><div class="card card--ym3"><a data-get-url="'+data['get_url']+'" class="card-image waves-effect waves-block waves-light ymp3-download"><img class="activator" src="'+data["thumb"]+'"><div class="card-overlay overlay--dark"></div><div class="meta-duration ">'+data["length"]+'</div><span href="#!" class="btn-dwn valign-wrapper"><i class="valign fa fa-spinner fa-pulse fa-3x fa-fw"></i><i class="valign fa fa-arrow-down" aria-hidden="true"></i><i class="valign fa fa-check fa-2x" aria-hidden="true"></i></span></a><div class="card-content"><span class="activator card--ym3--title flow-text">'+data["title"]+'</span><div class="meta"><div class="channel color-primary"><i class="fa fa-bullseye" aria-hidden="true"></i>'+data["uploader"]+'</div><div class="views color-primary"><i class="fa fa-eye" aria-hidden="true"></i>'+data["views"]+'</div></div><div class="stream-btn"><a data-stream-url="'+data['stream_url']+'" class="tooltipped modal-trigger" data-position="bottom" data-delay="50" data-tooltip="I am tooltip" href="#stream-player"><i class="fa fa-play-circle-o" aria-hidden="true"></i></a></div></div><div class="card-reveal"><span class="card-title color-primary activator"><i class="fa fa-times right"></i>'+data["title"]+'</span><p class="flow-text">'+data['description']+'</p></div></div></div>';
 }
 
-/*
+/**
 Returns Trending List
 @param data{object}: card data
 @returns data{string},type{int}: Trending HTML
@@ -127,7 +129,7 @@ function getTrendingHtml(data,type){
 	return '<div class="trending"><div class="trending-title"><h4 class="title-deco title-deco--sm">'+type+'</h4></div><div class="white-space space-mini"></div><div class="trending-list row">'+data+'</div><div class="white-space space-mini"></div><a href="/explore?p='+type+'" class="no-shadow waves-effect waves-light btn red trending-more">More</a></div>';
 }
 
-/*
+/**
  Loads Ajax Result
  @param searchInput{string} Search keyword or playlist to fetch,resType{int} Search Type
 */
@@ -184,10 +186,10 @@ function loadResult(searchInput,resType){
 	})
 }
 
-/*
+/**
  Loads Trending Section through Ajax
  @param type{string} trending type {eg.pop,rock},number{int} no. of result
- */
+ **/
 function loadTrending(type,number){
 	$.getJSON('/api/v1/trending?type=' + type+'&number='+number, success=function(data, textStatus, jqXHR){
 		var dataResult = data['results'];
@@ -204,10 +206,10 @@ function loadTrending(type,number){
 	})
 }
 
-/*
+/**
 Loads Trending section on homepage
 @param:count{int} number of results to load
-*/
+**/
 function trendingInit(){
 	$.getJSON('/api/v1/playlists', success=function(data, textStatus, jqXHR){
 		var results = data['results'];
@@ -220,10 +222,10 @@ function trendingInit(){
 	})
 }
 
-/*
+/**
  Loads autocomplete
  @param:{string} the keyword for autocomplete
- */
+ **/
 function loadAutoSuggest(searchInput) {
 	//Fetches Auto Suggestion
 	$.getJSON("http://suggestqueries.google.com/complete/search?callback=?",
@@ -256,6 +258,12 @@ function loadAutoSuggest(searchInput) {
 	};
 }
 
+/**
+ * Starts streaming of selected song
+ * @param streamPlayer instance of plyr player
+ * @param streamData consist of data related to the song
+ * @returns {boolean}
+ */
 function startStream(streamPlayer,streamData) {
 	var $streamContainer = $('#stream-player-container');
 
