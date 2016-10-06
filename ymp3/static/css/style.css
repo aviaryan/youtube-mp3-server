@@ -669,7 +669,7 @@ div.search-suggestions li a{
 	display: none;
 }
 
-.stream-wait .plyr__controls{
+.stream-wait .stream-player-wrapper{
 	display: none;
 }
 
@@ -730,6 +730,61 @@ div.search-suggestions li a{
 
 input[type=range]+.thumb.active{
 	display: none;
+}
+
+.player-meta{
+	width: 300px;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0 2rem 0 1rem;
+	border-right: 2px solid rgb(217, 228, 231);
+}
+
+.plyr--wrapper{
+	display: inline-block;
+	width: calc(100% - 310px);
+}
+
+.player-meta .player-albumart{
+	min-height: 50px;
+	min-width: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: flex;
+	position: relative;
+	justify-content: center;
+}
+
+.player-meta .player-albumart img{
+	max-height: 50px;
+	display: inline-block;
+	position: absolute;
+}
+
+.stream-player-wrapper{
+	display: flex;
+	align-items: center;
+}
+
+.player-name-artist{
+	margin-left: 20px;
+	overflow: hidden;
+}
+
+.player-name{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.player-meta .player-artist{
+	font-size: 1.25rem;
+	color: rgba(244, 67, 54,0.85);
+}
+
+.plyr{
+	padding: 0 0 0 1rem;
 }
 
 /************************

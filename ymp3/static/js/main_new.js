@@ -94,9 +94,18 @@ $(document).ready(function(){
 
 	$('body').on('click','.stream-btn a',function (e) {
 		e.preventDefault();
+		var $this  = $(this);
 		var streamUrl = $(this).data('stream-url');
+		var card = $this.closest('.card--ym3');
+		var title = card.find('.card--ym3--title').text();
+		var artist = card.find('.channel').text();
+		var albumart = card.find('.card-image > img').attr('src');
+
+		var streamData = {title:title,artist:artist,albumart:albumart,streamUrl:streamUrl};
+
+		console.log(title+artist+albumart);
 		// $('#stream-player-modal').openModal();
-		startStream(streamPlayer,streamUrl);
+		startStream(streamPlayer,streamData);
 		// console.log("qrr");
 	});
 });
@@ -247,17 +256,21 @@ function loadAutoSuggest(searchInput) {
 	};
 }
 
-function startStream(streamPlayer,streamUrl) {
+function startStream(streamPlayer,streamData) {
+	var $streamContainer = $('#stream-player-container');
+
 	streamPlayer[0].pause();
-	$streamContainer = $('#stream-player-container');
-	// $streamModel.openModal();
+	console.log(streamData);
 	$streamContainer.addClass('stream-wait');
+	$streamContainer.find('.player-albumart img').attr('src',streamData.albumart);
+	$streamContainer.find('.player-name').text(streamData.title);
+	$streamContainer.find('.player-artist').text(streamData.artist);
 
 	if($streamContainer.hasClass('no-music')){
 		$streamContainer.removeClass('no-music')
 	}
 
-	$.getJSON(streamUrl, success=function(data, textStatus, jqXHR){
+	$.getJSON(streamData.streamUrl, success=function(data, textStatus, jqXHR){
 		$('#stream-player-container').removeClass('stream-wait');
 		if (data['status'] != 200){
 			Materialize.toast('<h4 class="font-200">Can\'t Stream</h4>', 4000);
