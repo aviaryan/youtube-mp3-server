@@ -407,6 +407,8 @@ div.search-suggestions li a{
 }
 .meta div{
 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .card--ym3--title{
@@ -726,6 +728,9 @@ div.search-suggestions li a{
 	padding: 0 0 0 1rem;
 }
 
+.plyr__progress input[type=range]{
+	display: none;
+}
 
 /*************************
 ** Streaming Player Style**
@@ -815,7 +820,13 @@ input[type=range]+.thumb.active{
 	#stream-player-container{
 		padding: 1rem 1rem;
 	}
+
+	.plyr .plyr__volume{
+		display: none;
+	}
 }
+
+
 
 @media only screen and (max-width: 768px) {
 	.footer .footer-logo,.footer .footer-site-map{
@@ -831,6 +842,33 @@ input[type=range]+.thumb.active{
 	#stream-player-container{
 		padding: 1rem 2rem;
 	}
+
+	.plyr--wrapper{
+		width: calc(100% - 210px);
+	}
+
+	.player-meta{
+		width: 200px;
+	}
+}
+
+@media only screen and (max-width: 480px){
+
+	.plyr .plyr__progress{
+		display: none;
+	}
+
+	.plyr--wrapper{
+		width: 40%;
+	}
+
+	.player-meta{
+		width: 60%;
+	}
+
+	/*.plyr--audio .plyr__controls{
+		display: block;
+	}*/
 }
 
 @media only screen and (max-width: 700px) {
