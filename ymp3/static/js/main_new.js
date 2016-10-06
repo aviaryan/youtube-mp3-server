@@ -203,6 +203,8 @@ function loadTrending(type,number){
 			$('#home-trending').append(getTrendingHtml(trendingCard,res));
 		});
 
+		$('#search-preloader').hide();
+
 	})
 }
 
@@ -211,6 +213,7 @@ Loads Trending section on homepage
 @param:count{int} number of results to load
 **/
 function trendingInit(){
+	$('#search-preloader').show();
 	$.getJSON('/api/v1/playlists', success=function(data, textStatus, jqXHR){
 		var results = data['results'];
 		var type_str = '';
