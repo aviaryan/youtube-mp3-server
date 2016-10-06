@@ -699,7 +699,6 @@ div.search-suggestions li a{
 	padding: 1rem 5rem;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	border: 1px solid rgba(198,214,219,.66);
-	left: 1px;
 	transform: translateY(0);
 	transition: transform 0.5s;
 }
@@ -727,6 +726,10 @@ div.search-suggestions li a{
 
 .stream-progress .progress{
 	width: 60%;
+}
+
+input[type=range]+.thumb.active{
+	display: none;
 }
 
 /************************
