@@ -3,7 +3,7 @@ python:
   - "2.7"
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql postgresql-contrib
+  - sudo apt-get install -qq libpq-dev python2.7-dev postgresql-contrib-9.4
 env:
   APP_CONFIG: "config.TestingConfig"
   DOCKER_COMPOSE_VERSION: 1.8.0
@@ -36,6 +36,9 @@ script:
   - bash scripts/set_ffmpeg.sh
   # test
   - make test
+
+addons:
+  postgresql: "9.4"
 
 # https://docs.travis-ci.com/user/docker/#Using-Docker-Compose
 # before_install:

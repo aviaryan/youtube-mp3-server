@@ -19,6 +19,7 @@ class TestTrending(YMP3TestCase):
         for playlist in trending_playlist:
             resp = self.app.get('/api/v1/trending?type=%s' % playlist[0])
             self.assertEqual(resp.status_code, 200, playlist[0])
+            self.assertIn('stream_url', resp.data)
             data = json.loads(resp.data)
             self.assertNotEqual(data['metadata']['count'], 0, playlist[0])
 
