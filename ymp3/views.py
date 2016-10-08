@@ -143,7 +143,8 @@ def search():
     """
     try:
         search_term = request.args.get('q')
-        link = 'https://www.youtube.com/results?search_query=%s' % search_term
+        proxy_search_term = search_term + '(full song|remix|song|karaoke|instrumental|movie songs|album songs)'
+        link = 'https://www.youtube.com/results?search_query=%s' % proxy_search_term
         link += '&sp=EgIQAQ%253D%253D'  # for only video
         link += '&gl=IN'
         raw_html = open_page(link)
