@@ -9,7 +9,7 @@ API v1.
 
 All responses will include these common fields -
 
-| Term | Explaination |
+| Term | Explanation |
 |-----------|--------------|
 |`status`| HTTP status code.|
 |`requestLocation`| Location where request was made.|
@@ -40,7 +40,7 @@ Example -
 	* **Location:** `/api/v1/g`
 	* **Parameters**:
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|-----------|--------------|
 	|`url`| Encrypted URL as recieved from search.|
 
@@ -53,7 +53,7 @@ Example -
 
 	* **Response**:
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|-----------|--------------|
 	|`url`| URL to download the song from.|
 
@@ -70,7 +70,7 @@ Example -
 	* **Location**: `/api/v1/search`
 	* **Parameters**:
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|-----------|--------------|
 	|`q`| Search query.|
 
@@ -83,7 +83,7 @@ Example -
 
 	* **Response**:
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|-----------|--------------|
 	|`metadata`| Data about fetched data. <br/>&nbsp;&nbsp;&nbsp;&nbsp;`q`: Searched query.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`count`: Numner of results returned.|
 	|`results`| Actual result set contains a list of items with following attributes : <br/>&nbsp;&nbsp;&nbsp;&nbsp;`get_url`: URL to get song from.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`title`: Title of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`id`: Youtube ID of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`length`: Length of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`thumb`: Link to video thumbnail.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`time`: Time since upload. e.g. `3 years ago`.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`uploader`: Youtube uploader ID.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`views`: View count for the video in comma separated number format.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`description`: Video description as on Youtube.|
@@ -139,7 +139,7 @@ Example -
 	* **Location**: `/api/v1/trending`
 	* **Parameters**:
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|------|--------------|
 	|`number`| Max number of results to get in each playlist. Defaults to 25.|
 	|`type`| Playlist type names separated by comma(s). Defaults to `popular`.|
@@ -147,7 +147,7 @@ Example -
 
 	* **Response**
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|-----------|--------------|
 	|`metadata`| Data about fetched data.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`count`: Number of results returned.|
 	|`results`| Actual result set contains a list of items with following attributes : <br/>&nbsp;&nbsp;&nbsp;&nbsp;`get_url`: URL to get song from.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`id`: Youtube ID of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`title`: Title of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`length`: Length of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`thumb`: Link to video thumbnail.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`uploader`: Youtube uploader ID.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`views`: View count for the video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`description`: Video description as on Youtube.|
@@ -215,7 +215,7 @@ Example -
 	* **Location**: `/api/v1/d`
 	* **Parameters**:
 
-		| Term | Explaination |
+		| Term | Explanation |
 		|------|--------------|
 		|`bitrate`| Desired bitrate. Defaults to 128|
 		|`url` | Encrypted URL as recieved from `/api/v1/g`|
@@ -229,7 +229,7 @@ Example -
 	* **Location**: `/api/v1/playlists`
 	* **Response**:
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|------|--------------|
 	|`metadata`| Contains following term:<br/>&nbsp;&nbsp;&nbsp;&nbsp;`count`: Number of playlists.|
 	|`results`| List containing following dictionary:<br/>&nbsp;&nbsp;&nbsp;&nbsp;`playlist`: Name of playlist<br/>&nbsp;&nbsp;&nbsp;&nbsp;`url`: Playlist URL on Youtube|
@@ -258,14 +258,14 @@ Example -
 	* **Location**: `/api/v1/stream`
 	* **Parameters**:
 
-		| Term | Explaination |
+		| Term | Explanation |
 		|------|--------------|
 		|`url`| Encoded URL as recieved from the search|
 
 	* **Response**:
 
 
-	| Term | Explaination |
+	| Term | Explanation |
 	|------|--------------|
 	|`status`| Status code |
 	|`url`| Url to stream from |
@@ -275,5 +275,53 @@ Example -
 	{
 		"status": 200,
 		"url": "/api/v1/stream_handler?url=asfj2jJSAJDAJASKK898989"
+	}
+	```
+
+
+* ### Getting related videos
+	* **Type**: `GET`
+	* **Location**: `/api/v1/suggest`
+	* **Parameters**:
+
+		| Term | Explanation |
+		|------|-------------|
+		|`url`| Encoded URL as recieved from search. |
+
+	* **Response**:
+
+	|`Term`| Explanation |
+	|------|-------------|
+	|`metadata`| Contains following terms:<br/>&nbsp;&nbsp;&nbsp;&nbsp;`count`: Number of results shown.|
+	|`results`| Actual result set contains a list of items with following attributes : <br/>&nbsp;&nbsp;&nbsp;&nbsp;`get_url`: URL to get song from.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`id`: Youtube ID of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`title`: Title of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`length`: Length of video.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`thumb`: Link to video thumbnail.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`uploader`: Youtube uploader ID.<br/>&nbsp;&nbsp;&nbsp;&nbsp;`views`: View count for the video.|
+
+	Example -
+	```json
+	{
+		"metadata": {
+			"count": 2
+		},
+		"results": [
+				{
+					"get_url": "/api/v1/g?url=fSRrZiQ8IiR1blBnZFE5W2tydSQuIiR2a3ZuZyQ8IiRQd2VuZ3tjIi8iRENVVSJUY3BrIi8iQ2NsYyJoZ2N2IkN4cGdndiJNand0b2siKGNvcj0iSXd0ayJJY3BpdXZjJH8=",
+					"id": "slNebO7Yips",
+					"length": "4:34",
+					"thumb": "http://img.youtube.com/vi/slNebO7Yips/0.jpg",
+					"title": "Nucleya - BASS Rani - Aaja feat Avneet Khurmi &amp; Guri Gangsta",
+					"uploader": "NUCLEYA",
+					"stream_url": "/api/v1/stream?url=fSRrZiQ8IiR1blBnZFE5W2tydSQuIiR2a3ZuZyQ8IiRQd2VuZ3tjIi8iRENVVSJUY3BrIi8iQ2NsYyJoZ2N2IkN4cGdndiJNand0b2siKGNvcj0iSXd0ayJJY3BpdXZjJH8=",
+					"views": "1,078,918"
+				},
+				{
+					"get_url": "/api/v1/g?url=fSRrZiQ8IiR1blBnZFE5W2tydSQuIiR2a3ZuZyQ8IiRQd2VuZ3tjIi8iRENVVSJUY3BrIi8iQ2NsYyJoZ2N2IkN4cGdndiJNand0b2siKGNvcj0iSXd0ayJJY3BpdXZjJH8=",
+					"id": "slNebO7Yips",
+					"length": "4:34",
+					"thumb": "http://img.youtube.com/vi/slNebO7Yips/0.jpg",
+					"title": "Nucleya - BASS Rani - Aaja feat Avneet Khurmi &amp; Guri Gangsta",
+					"stream_url": "/api/v1/stream?url=fSRrZiQ8IiR1blBnZFE5W2tydSQuIiR2a3ZuZyQ8IiRQd2VuZ3tjIi8iRENVVSJUY3BrIi8iQ2NsYyJoZ2N2IkN4cGdndiJNand0b2siKGNvcj0iSXd0ayJJY3BpdXZjJH8=",
+					"uploader": "NUCLEYA",
+					"views": "1,078,918"
+				}
+		]
 	}
 	```

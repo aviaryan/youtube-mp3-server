@@ -1,6 +1,6 @@
 import re
 from encryption import get_key, encode_data
-
+from .networking import open_page
 
 INF = float("inf")
 
@@ -92,3 +92,44 @@ def extends_length(length, limit):
         return (secs > limit)
     except Exception:
         return True
+
+
+def get_suggestions(vid_id, get_url_prefix='/api/v1'):
+    url = "https://www.youtube.com/watch?v=" + vid_id
+    raw_html = open_page(url)
+
+    area_of_concern_regex = r'<div class=\"watch-sidebar-section\"(.*?)<div id=\"watch7-hidden-extras\"'
+    area_of_concern = ' '.join(re.findall(area_of_concern_regex, raw_html, re.DOTALL))
+
+    videos_html_regex = r'class=\"video-list-item.*?a href=\"/watch\?v=(.*?)\" class.*? class=\"title.*?>(.*?)</span>' \
+                        r'.*?Duration: (.*?)\..*?<span class=\"g-hovercard.*?>(.*?)</span>.*?view-count\">(.*?) ' \
+                        r'views.*?<li '
+    videos_html = re.findall(videos_html_regex, area_of_concern, re.DOTALL)
+
+    ret_list = []
+    for video in videos_html:
+        _id = video[0]
+        title = video[1].strip('\n\t ')
+        duration = video[2]
+        uploader = video[3]
+        views = video[4]
+        get_url = get_url_prefix + '/g?url=' + encode_data(get_key(), id=_id, title=title, length=duration)
+        stream_url = get_url.replace('/g?', '/stream?', 1)
+
+        if extends_length(duration, 20*60):
+            continue
+
+        ret_list.append(
+            {
+                "id": _id,
+                "title": title,
+                "length": duration,
+                "uploader": uploader,
+                "thumb": 'http://img.youtube.com/vi/%s/0.jpg' % _id,
+                "get_url": get_url,
+                "stream_url": stream_url,
+                "views": views
+            }
+        )
+
+    return ret_list

@@ -8,7 +8,7 @@ from flask import jsonify, request, render_template, url_for, make_response, Mar
 from subprocess import check_output, call
 from ymp3 import app, LOCAL
 
-from helpers.search import get_videos, get_video_attrs, extends_length
+from helpers.search import get_videos, get_video_attrs, extends_length, get_suggestions
 from helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title, \
     record_request, add_cover, get_download_link_youtube, make_error_response
 from helpers.encryption import get_key, encode_data, decode_data
@@ -346,3 +346,33 @@ def stream_handler():
     if url.find('mime=audio%2Fwebm') > -1:
         mime = 'audio/webm'
     return Response(generate_data(), mimetype=mime)
+
+
+@app.route('/api/v1/suggest')
+@record_request
+def suggest_songs():
+
+    try:
+        url = request.args.get('url')
+
+        decoded_data = decode_data(get_key(), url)
+
+        vid_id = decoded_data["id"]
+
+        vids = get_suggestions(vid_id)
+
+        count = len(vids)
+
+        return jsonify(
+            {
+                "status": 200,
+                "request_location": "/api/v1/suggest",
+                "metadate": {
+                    "count": count
+                },
+                "results": vids
+            }
+        )
+
+    except Exception as e:
+        return make_error_response(msg=str(e), endpoint='/api/v1/suggest')
