@@ -19,7 +19,7 @@ class TestSearch(YMP3TestCase):
     def test_long_video_not_returned(self):
         """test search of a term which usually will have long videos as results"""
         resp = self.app.get('/api/v1/search?q=kishore kumar')
-        self.assertIn('Code Jam', resp.data)
+        self.assertIn('Kishore', resp.data)
         data = json.loads(resp.data)
         self.assertTrue(len(data['results']) < 10)
 
