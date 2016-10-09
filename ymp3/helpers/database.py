@@ -86,7 +86,8 @@ def get_trending(type='popular', count=25, offset=0, get_url_prefix=''):
                 'views': row[5],
                 'get_url': get_url_prefix + row[6],
                 'stream_url': (get_url_prefix + row[6]).replace('/g?', '/stream?', 1),
-                'description': row[8]
+                'description': row[8],
+                'suggest_url': (get_url_prefix + row[6]).replace('/g?', '/suggest?', 1),
             }
         )
 

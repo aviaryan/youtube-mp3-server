@@ -154,6 +154,7 @@ def search():
             if temp:
                 temp['get_url'] = '/api/v1' + temp['get_url']
                 temp['stream_url'] = '/api/v1' + temp['stream_url']
+                temp['suggest_url'] = temp['get_url'].replace('/g?', '/suggest?', 1)
                 ret_vids.append(temp)
 
         ret_dict = {

@@ -115,6 +115,7 @@ def get_suggestions(vid_id, get_url_prefix='/api/v1'):
         views = video[4]
         get_url = get_url_prefix + '/g?url=' + encode_data(get_key(), id=_id, title=title, length=duration)
         stream_url = get_url.replace('/g?', '/stream?', 1)
+        suggest_url = get_url.replace('/g?', '/suggest?', 1)
 
         if extends_length(duration, 20*60):
             continue
@@ -128,7 +129,8 @@ def get_suggestions(vid_id, get_url_prefix='/api/v1'):
                 "thumb": 'http://img.youtube.com/vi/%s/0.jpg' % _id,
                 "get_url": get_url,
                 "stream_url": stream_url,
-                "views": views
+                "views": views,
+                "suggest_url": suggest_url
             }
         )
 
