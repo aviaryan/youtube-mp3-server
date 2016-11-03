@@ -4,53 +4,17 @@ import requests
 from flask import Response
 
 from ymp3 import logger
-from flask import jsonify, request, render_template, url_for, make_response, Markup
+from flask import jsonify, request, render_template, url_for, make_response
 from subprocess import check_output, call
 from ymp3 import app, LOCAL
 
-from helpers.search import get_videos, get_video_attrs, extends_length, get_suggestions
-from helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title, \
+from ymp3.helpers.search import get_videos, get_video_attrs, extends_length, get_suggestions
+from ymp3.helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title, \
     record_request, add_cover, get_download_link_youtube, make_error_response
-from helpers.encryption import get_key, encode_data, decode_data
-from helpers.data import trending_playlist
-from helpers.database import get_trending, get_api_log
-from helpers.networking import open_page
-
-
-@app.route('/lite')
-@record_request
-def home():
-    return render_template('/home.html')
-
-
-@app.route('/beta')
-@app.route('/')
-@record_request
-def home_beta():
-    return render_template('/index.html')
-
-
-@app.route('/terms-of-use')
-@record_request
-def terms_of_use():
-    return render_template('/terms-of-use.html')
-
-
-@app.route('/explore')
-@record_request
-def explore():
-    search_query = request.args.get('q')
-    if search_query:
-        search_query = '"{0}"'.format(search_query.replace('\"', '\\\"').strip())
-    else:
-        search_query = '""'
-
-    playlist = request.args.get('p')
-    if playlist:
-        playlist = '"{0}"'.format(playlist.replace('\"', '\\\"').strip())
-    else:
-        playlist = '""'
-    return render_template('/explore.html', query=Markup(search_query), playlist=Markup(playlist))
+from ymp3.helpers.encryption import get_key, encode_data, decode_data
+from ymp3.helpers.data import trending_playlist
+from ymp3.helpers.database import get_trending, get_api_log
+from ymp3.helpers.networking import open_page
 
 
 @app.route('/api/v1/d')
