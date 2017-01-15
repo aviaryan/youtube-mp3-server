@@ -9,7 +9,7 @@ $(document).ready(function(){
 		var $this  = $(this);
 		e.preventDefault();
 		var searchInput = $this.find('.search-btn').val();
-		console.log(searchInput);
+		// console.log(searchInput);
 		loadResult(searchInput);
 	});
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
 				$this.removeAttr('href');
 				return false;
 			}
-			console.log($this.attr('data-get-url'));
+			// console.log($this.attr('data-get-url'));
 			window.open(data['url']);
 			//window.location.href = data['url'];
 			$this.addClass('dwn-done');
@@ -53,7 +53,7 @@ $(document).ready(function(){
 		var $this = $(this),
 			searchInput = $this.val();
 
-		console.log(searchInput);
+		// console.log(searchInput);
 
 		//Aborts on no input and loads playlist item
 		if (!searchInput && $this.siblings('.search-suggestions').hasClass('searching')) {
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 		var streamData = {title:title,artist:artist,albumart:albumart,streamUrl:streamUrl};
 
-		console.log(title+artist+albumart);
+		// console.log(title+artist+albumart);
 		// $('#stream-player-modal').openModal();
 		startStream(streamPlayer,streamData);
 		// console.log("qrr");
@@ -271,7 +271,7 @@ function startStream(streamPlayer,streamData) {
 	var $streamContainer = $('#stream-player-container');
 
 	streamPlayer[0].pause();
-	console.log(streamData);
+	// console.log(streamData);
 	$streamContainer.addClass('stream-wait');
 	$streamContainer.find('.player-albumart img').attr('src',streamData.albumart);
 	$streamContainer.find('.player-name').text(streamData.title);

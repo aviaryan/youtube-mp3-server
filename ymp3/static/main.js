@@ -2,7 +2,7 @@
 // gets search results
 $('#searchBtn').click(function(){
 	search_text = $('#search').val();
-	console.log(search_text);
+	// console.log(search_text);
 	$('#loading_text').show();
 	// remove old data
 	search_temp = $('.search_result').first().clone();
