@@ -199,7 +199,7 @@
 <script src="../static/js/main_new.js"></script>
 <script>
   $(document).ready(function(){
-    window.history.pushState("object or string", "Title", "/explore");//Removes get parameter from address bar
+    window.history.replaceState("object or string", "Title", "/explore");//Removes get parameter from address bar
 
 //    Loads proper result according to data received from homepage
 //    Options:1.Search Result, 2.Playlist item
