@@ -1,7 +1,7 @@
 import re
 from encryption import get_key, encode_data
 
-from ymp3.helpers.helpers import html_unescape
+from anyaudio.helpers.helpers import html_unescape
 from .networking import open_page
 
 INF = float("inf")

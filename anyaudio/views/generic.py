@@ -2,11 +2,11 @@ from flask import redirect
 from flask import render_template, Markup, request
 from flask import url_for
 
-from ymp3 import app
-from ymp3.helpers.encryption import encode_data, get_key
-from ymp3.helpers.helpers import record_request, get_download_link_youtube
-from ymp3.helpers import database
-from ymp3.helpers.search import get_search_results_html, get_videos, \
+from anyaudio import app
+from anyaudio.helpers.encryption import encode_data, get_key
+from anyaudio.helpers.helpers import record_request, get_download_link_youtube
+from anyaudio.helpers import database
+from anyaudio.helpers.search import get_search_results_html, get_videos, \
     get_video_attrs, get_suggestions
 
 

@@ -3,18 +3,18 @@ import traceback
 import requests
 from flask import Response
 
-from ymp3 import logger
+from anyaudio import logger
 from flask import jsonify, request, render_template, url_for, make_response
 from subprocess import check_output, call
-from ymp3 import app, LOCAL
+from anyaudio import app, LOCAL
 
-from ymp3.helpers.search import get_videos, get_video_attrs, extends_length, get_suggestions, \
+from anyaudio.helpers.search import get_videos, get_video_attrs, extends_length, get_suggestions, \
     get_search_results_html, make_search_api_response
-from ymp3.helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title, \
+from anyaudio.helpers.helpers import delete_file, get_ffmpeg_path, get_filename_from_title, \
     record_request, add_cover, get_download_link_youtube, make_error_response
-from ymp3.helpers.encryption import get_key, encode_data, decode_data
-from ymp3.helpers.data import trending_playlist
-from ymp3.helpers.database import get_trending, get_api_log
+from anyaudio.helpers.encryption import get_key, encode_data, decode_data
+from anyaudio.helpers.data import trending_playlist
+from anyaudio.helpers.database import get_trending, get_api_log
 
 
 @app.route('/api/v1/d')

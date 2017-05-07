@@ -1,7 +1,7 @@
 import os
 from functools import wraps
 from subprocess import check_output
-from ymp3 import LOCAL, logger
+from anyaudio import LOCAL, logger
 from flask import request, jsonify
 from youtube_dl import YoutubeDL
 from HTMLParser import HTMLParser

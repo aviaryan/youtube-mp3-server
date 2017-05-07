@@ -1,8 +1,8 @@
 import unittest
 import json
 from tests import YMP3TestCase
-from ymp3.schedulers import trending
-from ymp3.helpers.data import trending_playlist
+from anyaudio.schedulers import trending
+from anyaudio.helpers.data import trending_playlist
 
 
 class TestTrending(YMP3TestCase):

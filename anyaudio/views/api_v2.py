@@ -1,14 +1,14 @@
 import traceback
 
 from flask import jsonify, request
-from ymp3 import app
+from anyaudio import app
 
-from ymp3.helpers.search import get_videos, get_video_attrs, \
+from anyaudio.helpers.search import get_videos, get_video_attrs, \
     get_search_results_html, make_search_api_response
-from ymp3.helpers.helpers import record_request, make_error_response
-from ymp3.helpers.encryption import get_key, decode_data
+from anyaudio.helpers.helpers import record_request, make_error_response
+from anyaudio.helpers.encryption import get_key, decode_data
 
-from ymp3.helpers.pafymodule import get_stream, get_download
+from anyaudio.helpers.pafymodule import get_stream, get_download
 
 
 @app.route('/api/v2/stream')

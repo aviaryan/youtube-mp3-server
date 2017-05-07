@@ -1,5 +1,5 @@
 import pafy
-from ymp3 import logger
+from anyaudio import logger
 
 
 def get_download(url):

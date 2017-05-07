@@ -1,6 +1,6 @@
 import re
 from os import environ
-from ymp3 import logger
+from anyaudio import logger
 from networking import open_page
 from encryption import get_key, encode_data
 from helpers import html_unescape

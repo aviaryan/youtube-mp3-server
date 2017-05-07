@@ -1,6 +1,6 @@
 import subprocess
 
-from ymp3 import logger
+from anyaudio import logger
 from . import Scheduler
 
 

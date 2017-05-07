@@ -12,7 +12,7 @@ if environ.get('OPENSHIFT_PYTHON_IP'):
     LOCAL = False
 
 # Logger
-logger = logging.getLogger('ymp3_logger')
+logger = logging.getLogger('anyaudio-server')
 handler = logging.StreamHandler()
 handler.setFormatter(logging.Formatter(
     '%(relativeCreated)6d %(threadName)s %(message)s'

@@ -1,5 +1,5 @@
 from os import environ
-from ymp3 import logger
+from anyaudio import logger
 from . import Scheduler
 from ..helpers.data import trending_playlist
 from ..helpers.trending import get_trending_videos

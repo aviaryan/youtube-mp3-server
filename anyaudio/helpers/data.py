@@ -57,8 +57,8 @@ table_creation_psql_statements = [
 
 psql_data = {
     'db_name': os.environ.get('POSTGRESQL_DB_NAME', 'ymp3'),
-    'username': os.environ.get('OPENSHIFT_POSTGRESQL_DB_USERNAME'),
-    'password': os.environ.get('OPENSHIFT_POSTGRESQL_DB_PASSWORD'),
-    'host': os.environ.get('OPENSHIFT_POSTGRESQL_DB_HOST'),
-    'port': int(os.environ.get('OPENSHIFT_POSTGRESQL_DB_PORT'))
+    'username': os.environ.get('OPENSHIFT_POSTGRESQL_DB_USERNAME', 'ymp3'),
+    'password': os.environ.get('OPENSHIFT_POSTGRESQL_DB_PASSWORD', 'ymp3'),
+    'host': os.environ.get('OPENSHIFT_POSTGRESQL_DB_HOST', '0.0.0.0'),
+    'port': int(os.environ.get('OPENSHIFT_POSTGRESQL_DB_PORT', '5432'))
 }

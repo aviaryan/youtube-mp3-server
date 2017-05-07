@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from ymp3 import DATABASE_PATH
+from anyaudio import DATABASE_PATH
 from . import psql_connection_pool
 
 from ..helpers.data import table_creation_sqlite_statements, table_creation_psql_statements
