@@ -42,11 +42,19 @@ def lite_search():
 @record_request
 def serve_music_lite(id):
     video = {}
-    url = get_download_link_youtube(
-        id, 'webm[abr<=64]/webm[abr<=80]/m4a[abr<=64]/[abr<=96]/m4a')
-    stream_url = url_for('stream_handler', url=encode_data(get_key(), url=url))
-    url = get_download_link_youtube(id, 'm4a/bestaudio')
-    download_url = url_for('download_file', url=encode_data(get_key(), url=url))
+    if 'bot' in request.user_agent.string.lower():
+        url = ""
+        stream_url = ""
+        download_url = ""
+    else:
+        url = get_download_link_youtube(
+            id, 'webm[abr<=64]/webm[abr<=80]/m4a[abr<=64]/[abr<=96]/m4a')
+        stream_url = url_for('stream_handler', url=encode_data(get_key(),
+                                                               url=url))
+        url = get_download_link_youtube(id, 'm4a/bestaudio')
+        download_url = url_for(
+            'download_file', url=encode_data(get_key(), url=url))
+
     video['stream_url'] = stream_url
     video['download_url'] = download_url
     video['suggestions'] = get_suggestions(id)
@@ -71,7 +79,8 @@ def terms_of_use():
 def explore():
     search_query = request.args.get('q')
     if search_query:
-        search_query = '"{0}"'.format(search_query.replace('\"', '\\\"').strip())
+        search_query = '"{0}"'.format(
+            search_query.replace('\"', '\\\"').strip())
     else:
         search_query = '""'
 
