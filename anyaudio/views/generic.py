@@ -89,7 +89,7 @@ def explore():
         playlist = '"{0}"'.format(playlist.replace('\"', '\\\"').strip())
     else:
         playlist = '""'
-    return render_template('/explore.html', query=Markup(search_query), playlist=Markup(playlist))
+    return render_template('/explore.html', query=search_query, playlist=playlist)
 
 
 @app.route('/app')
